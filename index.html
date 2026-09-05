@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سیستم هوشمند مدیریت و رهگیری تمرین</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #0a0e17;
+      --bg-card: rgba(18, 26, 43, 0.75);
+      --bg-card-hover: rgba(26, 38, 64, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --c-cyan: #06b6d4;
+      --c-green: #10b981;
+      --c-red: #f43f5e;
+      --c-amber: #f59e0b;
+      --c-purple: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      padding: 16px;
+      padding-bottom: 100px;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .title-box h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .title-box p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-header {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--c-cyan);
+      color: var(--c-cyan);
+    }
+
+    .progress-section {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 14px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    @media (max-width: 680px) {
+      .progress-section { grid-template-columns: 1fr; }
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--c-cyan), var(--c-green));
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 999px;
+    }
+
+    .week-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+      overflow-x: auto;
+    }
+
+    .week-tab {
+      flex: 1;
+      min-width: 70px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .week-tab.active {
+      background: var(--c-cyan);
+      color: #04131f;
+      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.4);
+    }
+
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 520px) {
+      .sessions-grid { grid-template-columns: 1fr; }
+    }
+
+    .session-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .session-header {
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .session-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .session-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .session-toggle-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .session-toggle-btn.completed {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--c-green);
+      color: var(--c-green);
+    }
+
+    .exercise-list {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .exercise-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 9px 12px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .exercise-row.is-done {
+      background: rgba(16, 185, 129, 0.04);
+      border-color: rgba(16, 185, 129, 0.22);
+    }
+
+    .exercise-name-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .exercise-index {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      width: 18px;
+      text-align: center;
+    }
+
+    .exercise-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #e2e8f0;
+      word-break: break-word;
+    }
+
+    .btn-exercise-complete {
+      flex-shrink: 0;
+      min-width: 110px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.18s ease;
+    }
+
+    .btn-exercise-complete.completed {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 182, 212, 0.2));
+      border-color: var(--c-green);
+      color: #34d399;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    /* مدال ویرایشگر ساختار برنامه */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 2000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0d1527;
+      border: 1px solid var(--border-color);
+      width: 100%;
+      max-width: 720px;
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 90vh;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-textarea {
+      width: 100%;
+      height: 320px;
+      background: #060a12;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px;
+      color: #38bdf8;
+      font-family: monospace;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      resize: vertical;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-action.primary {
+      background: var(--c-cyan);
+      color: #04131f;
+      border-color: var(--c-cyan);
+    }
+
+    .btn-action.danger:hover {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--c-red);
+      color: var(--c-red);
+    }
+
+    /* نوار تایمر استراحت */
+    .rest-timer-dock {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      width: calc(100% - 32px);
+      max-width: 480px;
+      justify-content: space-between;
+    }
+
+    .timer-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timer-clock {
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--c-cyan);
+      min-width: 48px;
+    }
+
+    .timer-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-timer {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-timer.stop {
+      background: rgba(244, 63, 94, 0.2);
+      color: var(--c-red);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="header-top">
+      <div class="title-box">
+        <h1 id="progTitle">برنامه بدنسازی تخصصی ۴ روزه</h1>
+        <p id="progSubtitle">تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn-header" onclick="openProgramModal()">⚙️ ویرایش و تغییر برنامه (JSON)</button>
+        <button class="btn-header" onclick="resetProgressOnly()">🔄 ریست ثبت‌ها</button>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-bar-container">
+        <div class="progress-labels">
+          <span style="color: var(--text-muted);" id="progressPeriodLabel">پیشرفت کل دوره</span>
+          <span id="totalProgressText" style="font-weight: 700; color: var(--c-cyan);">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="totalProgressBar"></div>
+        </div>
+      </div>
+
+      <div class="week-tabs" id="weekTabsContainer">
+        <!-- تب‌ها به صورت داینامیک رندر می‌شوند -->
+      </div>
+    </div>
+  </header>
+
+  <main class="sessions-grid" id="sessionsContainer"></main>
+
+</div>
+
+<!-- مدال تعویض و بروزرسانی برنامه -->
+<div class="modal-overlay" id="programModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">ساختار و متن برنامه تمرینی (JSON)</div>
+      <button class="modal-close" onclick="closeProgramModal()">✕</button>
+    </div>
+    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+      برای تغییر حرکات، تعداد روزها یا هفته‌ها، کد JSON ارائه‌شده توسط هوش مصنوعی را در کادر زیر قرار داده و دکمه اعمال را بزنید:
+    </p>
+    <textarea class="modal-textarea" id="jsonInput" spellcheck="false"></textarea>
+    <div class="modal-actions">
+      <div>
+        <button class="btn-action" onclick="copyCurrentSchema()">کپی کد فعلی</button>
+        <button class="btn-action" onclick="resetToDefaultProgram()">بازگشت به برنامه اولیه</button>
+      </div>
+      <div>
+        <button class="btn-action primary" onclick="applyCustomProgram()">اعمال و جایگزینی برنامه</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- تایمر شناور -->
+<div class="rest-timer-dock">
+  <div class="timer-display">
+    <div class="timer-clock" id="timerClock">00:00</div>
+  </div>
+  <div class="timer-buttons">
+    <button class="btn-timer" onclick="startTimer(45)">۴۵ ثانیه</button>
+    <button class="btn-timer" onclick="startTimer(60)">۶۰ ثانیه</button>
+    <button class="btn-timer" onclick="startTimer(90)">۹۰ ثانیه</button>
+    <button class="btn-timer stop" onclick="stopTimer()">توقف</button>
+  </div>
+</div>
+
+<script>
+  // برنامه اولیه پیش‌فرض مطابق فاز فعلی
+  const defaultProgram = {
+    title: "برنامه بدنسازی تخصصی ۴ روزه",
+    subtitle: "تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی • فاز A4",
+    totalWeeks: 4,
+    sessions: [
+      {
+        id: "s1",
+        title: "جلسه ۱: سینه، زیربغل و بازو (بخش اول)",
+        tag: "سوپرست آنتاگونیست",
+        color: "#f43f5e",
+        exercises: [
+          { id: "e1_1", name: "سینه هالتر / لت دست معمولی" },
+          { id: "e1_2", name: "بالا سینه هالتر / قایقی" },
+          { id: "e1_3", name: "زیر سینه هالتر / اچ بالا" },
+          { id: "e1_4", name: "جلو بازو ایستاده بارو هالتر (باز و بسته) / سیم‌کش لت پشت" },
+          { id: "e1_5", name: "جلو بازو سیم‌کش جفتی پشت / پشت بازو چکشی سیم هفت" },
+          { id: "e1_6", name: "جلو بازو دمبل سنگین ایستاده / پشت بازو طناب" }
+        ]
+      },
+      {
+        id: "s2",
+        title: "جلسه ۲: سرشانه، کول و پا (بخش اول)",
+        tag: "داون‌ست و چهارست",
+        color: "#06b6d4",
+        exercises: [
+          { id: "e2_1", name: "نشر جانب دمبل" },
+          { id: "e2_2", name: "پرس سرشانه اسمیت از جلو" },
+          { id: "e2_3", name: "پرس سرشانه اسمیت از عقب" },
+          { id: "e2_4", name: "نشر عقب روی میز خم سنگین" },
+          { id: "e2_5", name: "نشر سیم‌کش صندلی" },
+          { id: "e2_6", name: "کول" },
+          { id: "e2_7", name: "هاک اسکوات" },
+          { id: "e2_8", name: "اسکوات" },
+          { id: "e2_9", name: "پشت پا ایستاده" },
+          { id: "e2_10", name: "باسن" }
+        ]
+      },
+      {
+        id: "s3",
+        title: "جلسه ۳: سینه، زیربغل، بازو و شکم (بخش دوم)",
+        tag: "پمپ عضلانی + کور",
+        color: "#10b981",
+        exercises: [
+          { id: "e3_1", name: "خط سینه دستگاه / قایقی دست باز" },
+          { id: "e3_2", name: "بالا سینه دستگاه / اچ پایین" },
+          { id: "e3_3", name: "پروانه / اره‌ای جفت میز" },
+          { id: "e3_4", name: "کراس اور بالا / زیربغل سیم‌کش" },
+          { id: "e3_5", name: "زیرشکم / فیله / پهلو کرانچ سیم" },
+          { id: "e3_6", name: "جلو بازو چکشی هالتر (۳ حالت) / پشت بازو طناب پایین" },
+          { id: "e3_7", name: "جلو بازو لاری / پشت بازو سیم‌کش بالا سر" },
+          { id: "e3_8", name: "جلو بازو سیم‌کش مچ برعکس / پشت بازو سیم‌کش مچ برعکس" },
+          { id: "e3_9", name: "مچ و ساعد (دستگاه یا دمبل)" }
+        ]
+      },
+      {
+        id: "s4",
+        title: "جلسه ۴: سرشانه، کول و پا (بخش دوم)",
+        tag: "تراکم عضلانی و حجم",
+        color: "#f59e0b",
+        exercises: [
+          { id: "e4_1", name: "پرس سرشانه دمبل" },
+          { id: "e4_2", name: "نشر از جلو سیم‌کش با طناب" },
+          { id: "e4_3", name: "نشر از جانب سیم‌کش از پشت" },
+          { id: "e4_4", name: "کول سیم‌کش دسته بلند / شراگ دست باز" },
+          { id: "e4_5", name: "جلو ران دستگاه" },
+          { id: "e4_6", name: "پشت پا هالتر" },
+          { id: "e4_7", name: "پرس پا" },
+          { id: "e4_8", name: "خیاطه‌ (داخل پا و بیرون پا)" },
+          { id: "e4_9", name: "ساق پا" },
+          { id: "e4_10", name: "فیله کمر" }
+        ]
+      }
+    ]
+  };
+
+  const SCHEMA_KEY = "custom_workout_schema_v1";
+  const LOGS_KEY = "workout_progress_logs_v1";
+
+  let activeProgram = defaultProgram;
+  let workoutProgress = {};
+  let currentWeek = 1;
+
+  // مقداردهی اولیه داده‌ها
+  function initData() {
+    const savedSchema = localStorage.getItem(SCHEMA_KEY);
+    if (savedSchema) {
+      try { activeProgram = JSON.parse(savedSchema); } catch (e) { activeProgram = defaultProgram; }
+    } else {
+      activeProgram = defaultProgram;
+    }
+
+    const savedLogs = localStorage.getItem(LOGS_KEY);
+    if (savedLogs) {
+      try { workoutProgress = JSON.parse(savedLogs); } catch (e) { workoutProgress = {}; }
+    }
+  }
+
+  function saveProgress() {
+    localStorage.setItem(LOGS_KEY, JSON.stringify(workoutProgress));
+    updateProgressUI();
+  }
+
+  // ایجاد تب‌های هفته به صورت پویا
+  function renderWeekTabs() {
+    const container = document.getElementById("weekTabsContainer");
+    container.innerHTML = "";
+    const totalWeeks = activeProgram.totalWeeks || 4;
+
+    for (let w = 1; w <= totalWeeks; w++) {
+      const btn = document.createElement("button");
+      btn.className = `week-tab ${w === currentWeek ? 'active' : ''}`;
+      btn.innerText = `هفته ${w}`;
+      btn.onclick = () => {
+        currentWeek = w;
+        renderWeekTabs();
+        renderSessions();
+      };
+      container.appendChild(btn);
+    }
+  }
+
+  function isExerciseDone(week, sId, eId) {
+    return !!workoutProgress[week]?.[sId]?.[eId];
+  }
+
+  function toggleExercise(week, sId, eId) {
+    if (!workoutProgress[week]) workoutProgress[week] = {};
+    if (!workoutProgress[week][sId]) workoutProgress[week][sId] = {};
+
+    workoutProgress[week][sId][eId] = !workoutProgress[week][sId][eId];
+    saveProgress();
+    renderSessions();
+  }
+
+  function isSessionDone(week, session) {
+    return session.exercises.every(ex => isExerciseDone(week, session.id, ex.id));
+  }
+
+  function toggleSession(week, sId) {
+    const session = activeProgram.sessions.find(s => s.id === sId);
+    if (!session) return;
+
+    const done = isSessionDone(week, session);
+    if (!workoutProgress[week]) workoutProgress[week] = {};
+    if (!workoutProgress[week][sId]) workoutProgress[week][sId] = {};
+
+    session.exercises.forEach(ex => {
+      workoutProgress[week][sId][ex.id] = !done;
+    });
+
+    saveProgress();
+    renderSessions();
+  }
+
+  // رندر کردن جلسات و حرکات بر اساس اسکیما
+  function renderSessions() {
+    document.getElementById("progTitle").innerText = activeProgram.title || "برنامه تمرینی";
+    document.getElementById("progSubtitle").innerText = activeProgram.subtitle || "";
+    document.getElementById("progressPeriodLabel").innerText = `پیشرفت کل دوره (${activeProgram.totalWeeks || 4} هفته)`;
+
+    const container = document.getElementById("sessionsContainer");
+    container.innerHTML = "";
+
+    activeProgram.sessions.forEach(session => {
+      const isCompleted = isSessionDone(currentWeek, session);
+      const card = document.createElement("div");
+      card.className = "session-card";
+      card.style.borderTop = `3px solid ${session.color || 'var(--c-cyan)'}`;
+
+      let rows = "";
+      session.exercises.forEach((ex, idx) => {
+        const done = isExerciseDone(currentWeek, session.id, ex.id);
+        rows += `
+          <div class="exercise-row ${done ? 'is-done' : ''}">
+            <div class="exercise-name-box">
+              <span class="exercise-index">${idx + 1}</span>
+              <span class="exercise-name">${ex.name}</span>
+            </div>
+            <button class="btn-exercise-complete ${done ? 'completed' : ''}" 
+                    onclick="toggleExercise(${currentWeek}, '${session.id}', '${ex.id}')">
+              <span>${done ? 'انجام شد ✓' : 'ثبت انجام'}</span>
+            </button>
+          </div>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="session-header">
+          <div>
+            <span class="session-tag" style="background: ${session.color ? session.color + '22' : 'rgba(255,255,255,0.1)'}; color: ${session.color || '#fff'};">
+              ${session.tag || 'تمرین'}
+            </span>
+            <div class="session-title">${session.title}</div>
+          </div>
+          <button class="session-toggle-btn ${isCompleted ? 'completed' : ''}" onclick="toggleSession(${currentWeek}, '${session.id}')">
+            ${isCompleted ? 'تکمیل شد ✓' : 'تکمیل جلسه'}
+          </button>
+        </div>
+        <div class="exercise-list">${rows}</div>
+      `;
+
+      container.appendChild(card);
+    });
+
+    updateProgressUI();
+  }
+
+  function updateProgressUI() {
+    let total = 0;
+    let completed = 0;
+    const totalWeeks = activeProgram.totalWeeks || 4;
+
+    for (let w = 1; w <= totalWeeks; w++) {
+      activeProgram.sessions.forEach(session => {
+        session.exercises.forEach(ex => {
+          total++;
+          if (workoutProgress[w]?.[session.id]?.[ex.id]) completed++;
+        });
+      });
+    }
+
+    const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+    document.getElementById("totalProgressBar").style.width = pct + "%";
+    document.getElementById("totalProgressText").innerText = pct + "%";
+  }
+
+  // مدیریت مدال برنامه (JSON)
+  function openProgramModal() {
+    document.getElementById("jsonInput").value = JSON.stringify(activeProgram, null, 2);
+    document.getElementById("programModal").classList.add("active");
+  }
+
+  function closeProgramModal() {
+    document.getElementById("programModal").classList.remove("active");
+  }
+
+  function copyCurrentSchema() {
+    const text = document.getElementById("jsonInput").value;
+    navigator.clipboard.writeText(text).then(() => alert("کد ساختار برنامه در کلیپ‌بورد کپی شد."));
+  }
+
+  function applyCustomProgram() {
+    try {
+      const parsed = JSON.parse(document.getElementById("jsonInput").value);
+      if (!parsed.sessions || !Array.isArray(parsed.sessions)) {
+        throw new Error("فرمت ساختار معتبر نیست (آرایه sessions یافت نشد).");
+      }
+      activeProgram = parsed;
+      localStorage.setItem(SCHEMA_KEY, JSON.stringify(activeProgram));
+      currentWeek = 1;
+      closeProgramModal();
+      renderWeekTabs();
+      renderSessions();
+      alert("برنامه تمرینی جدید با موفقیت اعمال شد!");
+    } catch (err) {
+      alert("خطا در اعمال JSON: " + err.message);
+    }
+  }
+
+  function resetToDefaultProgram() {
+    if (confirm("آیا مایلید ساختار برنامه به حالت پیش‌فرض بازگردد؟")) {
+      activeProgram = defaultProgram;
+      localStorage.removeItem(SCHEMA_KEY);
+      closeProgramModal();
+      renderWeekTabs();
+      renderSessions();
+    }
+  }
+
+  function resetProgressOnly() {
+    if (confirm("آیا تمام تیک‌ها و سوابق ثبت‌شده ریست شوند؟ (ساختار حرکات دست‌نخورده باقی می‌ماند)")) {
+      workoutProgress = {};
+      saveProgress();
+      renderSessions();
+    }
+  }
+
+  // سیستم تایمر استراحت
+  let timerInterval = null;
+  let remainingSeconds = 0;
+
+  function playTone(freq = 880, duration = 0.15) {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function startTimer(seconds) {
+    stopTimer();
+    remainingSeconds = seconds;
+    updateTimerUI();
+
+    timerInterval = setInterval(() => {
+      remainingSeconds--;
+      updateTimerUI();
+      if (remainingSeconds <= 3 && remainingSeconds > 0) playTone(600, 0.1);
+      if (remainingSeconds <= 0) {
+        stopTimer();
+        playTone(1200, 0.4);
+      }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = null;
+    document.getElementById("timerClock").innerText = "00:00";
+  }
+
+  function updateTimerUI() {
+    const mins = Math.floor(remainingSeconds / 60).toString().padStart(2, '0');
+    const secs = (remainingSeconds % 60).toString().padStart(2, '0');
+    document.getElementById("timerClock").innerText = `${mins}:${secs}`;
+  }
+
+  initData();
+  renderWeekTabs();
+  renderSessions();
+</script>
+
+</body>
+</html>
