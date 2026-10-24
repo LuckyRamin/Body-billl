@@ -3,37 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>PRO WORKOUT TRACKER - A4</title>
+  <title>BIOMECHANICAL WORKOUT TRACKER</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    :root {
+    /* متغیرهای پایه و سیستم تم‌ها */
+    :root, [data-theme="cyber"] {
       --bg-base: #060911;
-      --bg-surface: #0f1523;
-      --bg-surface-elevated: #172033;
-      --border-subtle: rgba(255, 255, 255, 0.07);
-      --border-highlight: rgba(255, 255, 255, 0.14);
-      
+      --bg-surface: #0f1626;
+      --bg-elevated: #182238;
+      --bg-glass: rgba(15, 22, 38, 0.92);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(255, 255, 255, 0.16);
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
+      --theme-primary: #06b6d4;
+      --theme-secondary: #10b981;
+      --theme-warning: #f59e0b;
+      --theme-danger: #ef4444;
+      --theme-purple: #a855f7;
+      --active-session-color: #ef4444;
+      --bg-glow: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.14) 0%, transparent 65%);
+    }
 
-      --accent-cyan: #06b6d4;
-      --accent-green: #10b981;
-      --accent-rose: #f43f5e;
-      --accent-amber: #f59e0b;
-      --accent-purple: #a855f7;
+    [data-theme="olympia"] {
+      --bg-base: #050505;
+      --bg-surface: #111010;
+      --bg-elevated: #1c1917;
+      --bg-glass: rgba(17, 16, 16, 0.94);
+      --border-subtle: rgba(245, 158, 11, 0.12);
+      --border-highlight: rgba(245, 158, 11, 0.28);
+      --text-primary: #fef3c7;
+      --text-secondary: #d6d3d1;
+      --text-muted: #78716c;
+      --theme-primary: #f59e0b;
+      --theme-secondary: #ef4444;
+      --theme-warning: #fbbf24;
+      --theme-danger: #dc2626;
+      --theme-purple: #f97316;
+      --bg-glow: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.16) 0%, transparent 65%);
+    }
 
-      --active-theme: var(--accent-cyan);
+    [data-theme="matrix"] {
+      --bg-base: #030a06;
+      --bg-surface: #091710;
+      --bg-elevated: #11261b;
+      --bg-glass: rgba(9, 23, 16, 0.94);
+      --border-subtle: rgba(16, 185, 129, 0.12);
+      --border-highlight: rgba(16, 185, 129, 0.28);
+      --text-primary: #ecfdf5;
+      --text-secondary: #a7f3d0;
+      --text-muted: #4b7a63;
+      --theme-primary: #10b981;
+      --theme-secondary: #84cc16;
+      --theme-warning: #eab308;
+      --theme-danger: #f43f5e;
+      --theme-purple: #06b6d4;
+      --bg-glow: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.16) 0%, transparent 65%);
+    }
+
+    [data-theme="ultraviolet"] {
+      --bg-base: #080412;
+      --bg-surface: #130b24;
+      --bg-elevated: #1f1238;
+      --bg-glass: rgba(19, 11, 36, 0.94);
+      --border-subtle: rgba(168, 85, 247, 0.12);
+      --border-highlight: rgba(236, 72, 153, 0.28);
+      --text-primary: #fae8ff;
+      --text-secondary: #d8b4fe;
+      --text-muted: #7e579f;
+      --theme-primary: #c084fc;
+      --theme-secondary: #ec4899;
+      --theme-warning: #f59e0b;
+      --theme-danger: #f43f5e;
+      --theme-purple: #38bdf8;
+      --bg-glow: radial-gradient(circle at 50% 0%, rgba(192, 132, 252, 0.18) 0%, transparent 65%);
+    }
+
+    [data-theme="daylight"] {
+      --bg-base: #f1f5f9;
+      --bg-surface: #ffffff;
+      --bg-elevated: #e2e8f0;
+      --bg-glass: rgba(255, 255, 255, 0.94);
+      --border-subtle: rgba(15, 23, 42, 0.09);
+      --border-highlight: rgba(15, 23, 42, 0.18);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --theme-primary: #0284c7;
+      --theme-secondary: #059669;
+      --theme-warning: #d97706;
+      --theme-danger: #e11d48;
+      --theme-purple: #7c3aed;
+      --bg-glow: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.08) 0%, transparent 65%);
+    }
+
+    /* ۳ حالت فونت و مقیاس تایپوگرافی */
+    :root, [data-font="standard"] {
+      --font-body: 'Vazirmatn', sans-serif;
+      --font-heading: 'Vazirmatn', sans-serif;
+      --scale-title: 1.2rem;
+      --scale-ex-name: 0.95rem;
+      --scale-badge: 0.74rem;
+      --weight-ex: 800;
+    }
+
+    [data-font="gym-bold"] {
+      --font-body: 'Vazirmatn', sans-serif;
+      --font-heading: 'Lalezar', 'Vazirmatn', cursive;
+      --scale-title: 1.45rem;
+      --scale-ex-name: 1.08rem;
+      --scale-badge: 0.82rem;
+      --weight-ex: 900;
+    }
+
+    [data-font="compact"] {
+      --font-body: 'Readex Pro', 'Vazirmatn', sans-serif;
+      --font-heading: 'Readex Pro', 'Vazirmatn', sans-serif;
+      --scale-title: 1.05rem;
+      --scale-ex-name: 0.85rem;
+      --scale-badge: 0.68rem;
+      --weight-ex: 600;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-body);
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
@@ -42,97 +142,87 @@
       background-color: var(--bg-base);
       color: var(--text-primary);
       min-height: 100vh;
-      padding: 12px 12px 125px 12px;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 60%);
+      padding: 12px 12px 135px 12px;
+      background-image: var(--bg-glow);
       background-attachment: fixed;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .app-shell {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
-    /* هدر بالایی */
+    /* نوار ابزار بالای صفحه */
     .top-bar {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       padding: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
 
-    .brand-row {
+    . utility-toolbar {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .brand-title h1 {
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: #fff;
-    }
-
-    .brand-title p {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 3px;
-    }
-
-    .header-badges {
-      display: flex;
+      align-items: center;
       flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .toolbar-group {
+      display: flex;
       gap: 6px;
-      margin-bottom: 14px;
+      flex-wrap: wrap;
     }
 
-    .h-badge {
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-    }
-
-    .h-badge.gold {
-      color: var(--accent-amber);
-      border-color: rgba(245, 158, 11, 0.3);
-      background: rgba(245, 158, 11, 0.1);
-    }
-
-    .icon-btn {
-      background: var(--bg-surface-elevated);
+    .tool-btn {
+      background: var(--bg-elevated);
       border: 1px solid var(--border-highlight);
       color: var(--text-primary);
-      height: 36px;
-      padding: 0 12px;
+      height: 34px;
+      padding: 0 11px;
       border-radius: 10px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
-      flex-shrink: 0;
     }
 
-    .icon-btn:hover {
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
+    .tool-btn:hover, .tool-btn:active {
+      border-color: var(--theme-primary);
+      color: var(--theme-primary);
     }
 
-    /* نوار پیشرفت کلی */
+    .brand-title h1 {
+      font-family: var(--font-heading);
+      font-size: var(--scale-title);
+      font-weight: 900;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .brand-title p {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    /* نوار پیشرفت کل دوره */
     .overall-progress-box {
-      background: rgba(0, 0, 0, 0.3);
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 10px 12px;
       margin-bottom: 12px;
@@ -143,12 +233,12 @@
       justify-content: space-between;
       font-size: 0.75rem;
       margin-bottom: 6px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .bar-track {
-      height: 6px;
-      background: rgba(255, 255, 255, 0.07);
+      height: 7px;
+      background: var(--bg-elevated);
       border-radius: 999px;
       overflow: hidden;
     }
@@ -156,49 +246,51 @@
     .bar-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+      background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary));
       border-radius: 999px;
       transition: width 0.35s ease;
     }
 
-    /* انتخاب‌گر هفته‌ها */
+    /* تب‌های هفته (پشتیبانی از ۴ تا ۸ هفته) */
     .week-selector {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.35);
-      padding: 4px;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 5px;
+      background: var(--bg-base);
+      padding: 5px;
       border-radius: 12px;
+      border: 1px solid var(--border-subtle);
     }
 
     .week-pill {
-      border: none;
+      border: 1px solid transparent;
       background: transparent;
       color: var(--text-secondary);
-      padding: 8px 4px;
-      border-radius: 9px;
-      font-size: 0.8rem;
-      font-weight: 700;
+      padding: 7px 4px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 800;
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
     }
 
     .week-pill.active {
-      background: var(--bg-surface-elevated);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-      border: 1px solid var(--border-highlight);
+      background: var(--bg-elevated);
+      color: var(--theme-primary);
+      border-color: var(--theme-primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     .week-pill.week-done::after {
       content: ' ✓';
-      color: var(--accent-green);
+      color: var(--theme-secondary);
     }
 
-    /* تب‌های جلسات */
+    /* تب‌های جلسات (پشتیبانی از ۳ تا ۶ جلسه در هفته) */
     .session-tabs {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
       gap: 8px;
     }
 
@@ -206,57 +298,60 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
-      padding: 10px 6px;
+      padding: 10px 8px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
       gap: 5px;
       transition: all 0.2s;
     }
 
     .session-tab.active {
-      background: var(--bg-surface-elevated);
-      border-color: var(--active-theme);
+      background: var(--bg-elevated);
+      border-color: var(--active-session-color);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
     }
 
     .session-tab-title {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: var(--text-secondary);
+      line-height: 1.3;
     }
 
     .session-tab.active .session-tab-title {
-      color: #fff;
+      color: var(--text-primary);
     }
 
     .session-tab-count {
-      font-size: 0.7rem;
-      font-weight: 700;
+      font-size: 0.68rem;
+      font-weight: 800;
       padding: 2px 8px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--bg-base);
       color: var(--text-muted);
     }
 
     .session-tab.is-complete .session-tab-count {
       background: rgba(16, 185, 129, 0.2);
-      color: var(--accent-green);
+      color: var(--theme-secondary);
     }
 
     /* هدر جلسه فعال */
     .active-session-hero {
-      background: linear-gradient(145deg, var(--bg-surface-elevated), var(--bg-surface));
+      background: linear-gradient(145deg, var(--bg-elevated), var(--bg-surface));
       border: 1px solid var(--border-highlight);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 16px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
-      border-right: 4px solid var(--active-theme);
+      border-right: 5px solid var(--active-session-color);
     }
 
     .hero-info {
@@ -271,33 +366,34 @@
       padding: 3px 10px;
       border-radius: 6px;
       width: fit-content;
-      background: rgba(255, 255, 255, 0.07);
-      color: var(--active-theme);
+      background: var(--bg-base);
+      color: var(--active-session-color);
+      border: 1px solid var(--border-subtle);
     }
 
     .hero-title {
-      font-size: 1rem;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
       font-weight: 900;
-      color: #fff;
+      color: var(--text-primary);
     }
 
     .btn-complete-all {
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--bg-surface);
       border: 1px solid var(--border-highlight);
       color: var(--text-primary);
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 10px;
       font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       white-space: nowrap;
-      flex-shrink: 0;
     }
 
     .btn-complete-all.done {
       background: rgba(16, 185, 129, 0.2);
-      border-color: var(--accent-green);
-      color: var(--accent-green);
+      border-color: var(--theme-secondary);
+      color: var(--theme-secondary);
     }
 
     /* لیست کارت‌های حرکات */
@@ -319,8 +415,8 @@
     }
 
     .exercise-card.completed {
-      background: rgba(15, 21, 35, 0.55);
-      border-color: rgba(16, 185, 129, 0.35);
+      opacity: 0.72;
+      border-color: var(--theme-secondary);
     }
 
     .card-top {
@@ -334,7 +430,7 @@
       width: 30px;
       height: 30px;
       border-radius: 9px;
-      background: var(--bg-surface-elevated);
+      background: var(--bg-elevated);
       border: 1px solid var(--border-highlight);
       color: var(--text-primary);
       font-weight: 900;
@@ -346,29 +442,41 @@
     }
 
     .exercise-card.completed .ex-number-badge {
-      background: var(--accent-green);
+      background: var(--theme-secondary);
       color: #04131f;
-      border-color: var(--accent-green);
+      border-color: var(--theme-secondary);
     }
 
     .movements-wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
+    }
+
+    .paired-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      font-weight: 900;
+      color: #fff;
+      background: linear-gradient(135deg, var(--theme-purple), var(--theme-primary));
+      padding: 2px 9px;
+      border-radius: 6px;
+      width: fit-content;
     }
 
     .movement-item {
-      font-size: 0.96rem;
-      font-weight: 800;
+      font-size: var(--scale-ex-name);
+      font-weight: var(--weight-ex);
       color: var(--text-primary);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .exercise-card.completed .movement-item {
-      color: var(--text-secondary);
       text-decoration: line-through;
-      text-decoration-color: rgba(16, 185, 129, 0.5);
+      color: var(--text-secondary);
     }
 
     .superset-connector {
@@ -377,7 +485,7 @@
       gap: 4px;
       font-size: 0.7rem;
       font-weight: 800;
-      color: var(--accent-purple);
+      color: var(--theme-purple);
       background: rgba(168, 85, 247, 0.14);
       border: 1px solid rgba(168, 85, 247, 0.3);
       padding: 2px 8px;
@@ -385,72 +493,74 @@
       width: fit-content;
     }
 
-    /* نوار مشخصات ست، تکرار و استراحت روی هر کارت */
+    /* بج‌های استخراج‌شده از JSON (ست، تکرار، RIR، استراحت، نکته فنی) */
     .specs-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     .spec-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 0.75rem;
+      gap: 4px;
+      font-size: var(--scale-badge);
       font-weight: 800;
       padding: 4px 10px;
       border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.15s;
-    }
-
-    .spec-pill:active {
-      transform: scale(0.95);
+      line-height: 1.3;
     }
 
     .spec-sets {
       background: rgba(6, 182, 212, 0.14);
-      color: #38bdf8;
+      color: var(--theme-primary);
       border: 1px solid rgba(6, 182, 212, 0.3);
     }
 
     .spec-reps {
       background: rgba(245, 158, 11, 0.14);
-      color: #fbbf24;
+      color: var(--theme-warning);
       border: 1px solid rgba(245, 158, 11, 0.3);
     }
 
-    .spec-rest {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-subtle);
-      cursor: default;
+    .spec-rir {
+      background: rgba(239, 68, 68, 0.14);
+      color: var(--theme-danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
-    /* بخش اکشن پایین هر کارت: ثبت وزنه + دکمه کشیده */
+    .spec-rest {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-highlight);
+    }
+
+    .spec-note {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--theme-secondary);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+    }
+
+    /* بخش پایین هر کارت: ثبت وزنه + دکمه کشیده */
     .card-bottom-actions {
       display: flex;
       align-items: center;
       gap: 10px;
       padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid var(--border-subtle);
     }
 
     .weight-input-wrap {
       display: flex;
       align-items: center;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border-subtle);
+      background: var(--bg-base);
+      border: 1px solid var(--border-highlight);
       border-radius: 12px;
       padding: 0 10px;
       height: 42px;
-      width: 140px;
+      width: 145px;
       flex-shrink: 0;
-    }
-
-    .weight-input-wrap:focus-within {
-      border-color: var(--accent-cyan);
     }
 
     .weight-input-wrap span {
@@ -458,12 +568,13 @@
       color: var(--text-muted);
       margin-left: 6px;
       white-space: nowrap;
+      font-weight: 700;
     }
 
     .weight-input {
       background: transparent;
       border: none;
-      color: var(--accent-cyan);
+      color: var(--theme-primary);
       font-weight: 800;
       font-size: 0.85rem;
       width: 100%;
@@ -476,8 +587,8 @@
       flex: 1;
       height: 42px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-highlight);
+      background: var(--bg-elevated);
       color: var(--text-primary);
       font-size: 0.85rem;
       font-weight: 800;
@@ -489,55 +600,32 @@
       transition: all 0.2s;
     }
 
+    .btn-check-wide:active {
+      transform: scale(0.98);
+    }
+
     .btn-check-wide.done {
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.2));
-      border-color: var(--accent-green);
-      color: #34d399;
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+      border-color: var(--theme-secondary);
+      color: var(--theme-secondary);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.18);
     }
 
-    /* کارت‌های راهنمای پایین صفحه (مطابق تصویر اصلی) */
-    .guidelines-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .guide-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 14px;
-      font-size: 0.78rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
-    .guide-box h4 {
-      font-size: 0.85rem;
-      font-weight: 800;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* داک شناور تایمر */
+    /* داک شناور تایمر هوشمند */
     .smart-timer-dock {
       position: fixed;
       bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
       width: calc(100% - 24px);
-      max-width: 696px;
-      background: rgba(15, 21, 35, 0.95);
+      max-width: 736px;
+      background: var(--bg-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-highlight);
       border-radius: 20px;
       padding: 10px 14px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -548,6 +636,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
     }
 
@@ -561,54 +650,57 @@
       font-family: monospace;
       font-size: 1.35rem;
       font-weight: 900;
-      color: var(--accent-cyan);
+      color: var(--theme-primary);
     }
 
     .auto-timer-toggle {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       font-size: 0.7rem;
       color: var(--text-secondary);
       cursor: pointer;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--bg-elevated);
       padding: 4px 8px;
       border-radius: 8px;
-      border: 1px solid transparent;
+      border: 1px solid var(--border-subtle);
     }
 
     .auto-timer-toggle.enabled {
-      color: var(--accent-green);
-      border-color: rgba(16, 185, 129, 0.35);
-      background: rgba(16, 185, 129, 0.1);
+      color: var(--theme-secondary);
+      border-color: var(--theme-secondary);
     }
 
     .timer-btn-group {
       display: flex;
-      gap: 6px;
+      gap: 5px;
     }
 
     .t-btn {
-      background: var(--bg-surface-elevated);
+      background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       color: var(--text-primary);
-      padding: 6px 10px;
-      border-radius: 10px;
-      font-size: 0.75rem;
+      padding: 6px 9px;
+      border-radius: 9px;
+      font-size: 0.73rem;
       font-weight: 800;
       cursor: pointer;
     }
 
+    .t-btn:hover {
+      border-color: var(--theme-primary);
+    }
+
     .t-btn.stop {
-      background: rgba(244, 63, 94, 0.18);
-      color: var(--accent-rose);
-      border-color: rgba(244, 63, 94, 0.35);
+      background: rgba(239, 68, 68, 0.18);
+      color: var(--theme-danger);
+      border-color: rgba(239, 68, 68, 0.35);
     }
 
     .timer-progress-line {
       width: 100%;
       height: 3px;
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--bg-elevated);
       border-radius: 99px;
       overflow: hidden;
     }
@@ -616,7 +708,7 @@
     .timer-progress-bar {
       height: 100%;
       width: 0%;
-      background: var(--accent-cyan);
+      background: var(--theme-primary);
       transition: width 0.25s linear;
     }
 
@@ -642,13 +734,14 @@
       border: 1px solid var(--border-highlight);
       border-radius: 22px;
       width: 100%;
-      max-width: 640px;
+      max-width: 660px;
       padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 14px;
       max-height: 90vh;
       overflow-y: auto;
+      color: var(--text-primary);
     }
 
     .modal-head {
@@ -669,7 +762,7 @@
       width: 100%;
       height: 300px;
       background: #050811;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-highlight);
       border-radius: 12px;
       padding: 12px;
       color: #38bdf8;
@@ -688,25 +781,25 @@
     }
 
     .m-btn {
-      background: var(--bg-surface-elevated);
+      background: var(--bg-elevated);
       border: 1px solid var(--border-highlight);
-      color: #fff;
+      color: var(--text-primary);
       padding: 9px 14px;
       border-radius: 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
     }
 
     .m-btn.primary {
-      background: var(--accent-cyan);
+      background: var(--theme-primary);
       color: #04131f;
-      border-color: var(--accent-cyan);
+      border-color: var(--theme-primary);
     }
 
     .m-btn.danger {
-      color: var(--accent-rose);
-      border-color: rgba(244, 63, 94, 0.4);
+      color: var(--theme-danger);
+      border-color: rgba(239, 68, 68, 0.4);
     }
   </style>
 </head>
@@ -714,27 +807,31 @@
 
 <div class="app-shell">
 
-  <!-- هدر اصلی -->
+  <!-- هدر اصلی با دکمه‌های تغییر تم، فونت و JSON -->
   <header class="top-bar">
-    <div class="brand-row">
-      <div class="brand-title">
-        <h1 id="uiTitle">برنامه بدنسازی تخصصی ۴ روزه</h1>
-        <p id="uiSubtitle">تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی • نسخه اختصاصی فاز A4</p>
+    <div class="utility-toolbar">
+      <div class="toolbar-group">
+        <button class="tool-btn" onclick="cycleTheme()" id="themeBtn" title="تغییر تم و رنگ‌بندی">
+          🎨 تم: سایبر نئون
+        </button>
+        <button class="tool-btn" onclick="cycleFont()" id="fontBtn" title="تغییر فونت و سایز متون">
+          🅰️ فونت: استاندارد
+        </button>
       </div>
-      <button class="icon-btn" onclick="openJsonModal()">⚙️ مدیریت برنامه</button>
+      <div class="toolbar-group">
+        <button class="tool-btn" onclick="openJsonModal()">⚙️ ورود / تغییر JSON</button>
+      </div>
     </div>
 
-    <div class="header-badges">
-      <span class="h-badge gold">⚡ سیستم سوپرست</span>
-      <span class="h-badge">🎯 ۴ جلسه در هفته</span>
-      <span class="h-badge">⏱️ استراحت: ۶۰-۹۰ ثانیه</span>
-      <span class="h-badge">📊 ۳ تا ۴ ست (۸ الی ۱۲ تکرار)</span>
+    <div class="brand-title">
+      <h1 id="uiTitle">برنامه بدنسازی ۵ روزه تخصصی</h1>
+      <p id="uiSubtitle">اولویت بازسازی بالاتنه • هایپرتروفی در وضعیت کشیده</p>
     </div>
 
     <div class="overall-progress-box">
       <div class="overall-labels">
-        <span style="color: var(--text-secondary);" id="periodLabel">پیشرفت کل دوره (۴ هفته)</span>
-        <span id="overallPctText" style="color: var(--accent-cyan); font-weight: 800;">0%</span>
+        <span style="color: var(--text-secondary);" id="periodLabel">پیشرفت کل دوره</span>
+        <span id="overallPctText" style="color: var(--theme-primary); font-weight: 900;">0%</span>
       </div>
       <div class="bar-track">
         <div class="bar-fill" id="overallBarFill"></div>
@@ -744,38 +841,22 @@
     <div class="week-selector" id="weekTabs"></div>
   </header>
 
-  <!-- تب‌های ۴ جلسه -->
+  <!-- تب‌های جلسات هفتگی -->
   <nav class="session-tabs" id="sessionTabs"></nav>
 
-  <!-- عنوان جلسه فعال -->
+  <!-- بنر جلسه فعال -->
   <section class="active-session-hero">
     <div class="hero-info">
-      <span class="hero-tag" id="heroTag">سوپرست آنتاگونیست</span>
-      <div class="hero-title" id="heroTitle">جلسه ۱: سینه، زیربغل و بازو</div>
+      <span class="hero-tag" id="heroTag">تنش مکانیکی</span>
+      <div class="hero-title" id="heroTitle">جلسه ۱</div>
     </div>
     <button class="btn-complete-all" id="btnCompleteSession" onclick="toggleEntireSession()">
       تکمیل کل جلسه
     </button>
   </section>
 
-  <!-- لیست کارت‌های حرکات (همراه با ست و تکرار) -->
+  <!-- لیست کارت‌های حرکات -->
   <main class="exercises-list" id="exercisesContainer"></main>
-
-  <!-- ۳ کارت راهنمای پایین صفحه دقیقاً مطابق تصویر -->
-  <section class="guidelines-section">
-    <div class="guide-box">
-      <h4 style="color: var(--accent-amber);">🔥 شدت و تکرارها</h4>
-      <p>عموماً ۳ تا ۴ ست با ۸ الی ۱۲ تکرار تا مرز ناتوانی مثبت و با فرم کاملاً صحیح و کنترل منفی.</p>
-    </div>
-    <div class="guide-box">
-      <h4 style="color: var(--accent-cyan);">⏱️ ریکاوری و استراحت</h4>
-      <p>بین ست‌های سوپرست ۶۰ تا ۹۰ ثانیه و حرکات تک‌مفصلی ۴۵ تا ۶۰ ثانیه استراحت کنید.</p>
-    </div>
-    <div class="guide-box">
-      <h4 style="color: var(--accent-green);">💧 تغذیه و هیدراتاسیون</h4>
-      <p>تأمین پروتئین کافی روزانه (۱.۶ الی ۲.۲ گرم بر کیلوگرم وزن)، نوشیدن مداوم آب و خواب کافی.</p>
-    </div>
-  </section>
 
 </div>
 
@@ -790,9 +871,10 @@
       </div>
     </div>
     <div class="timer-btn-group">
-      <button class="t-btn" onclick="startRestTimer(45)">۴۵s</button>
       <button class="t-btn" onclick="startRestTimer(60)">۶۰s</button>
       <button class="t-btn" onclick="startRestTimer(90)">۹۰s</button>
+      <button class="t-btn" onclick="startRestTimer(120)">۱۲۰s</button>
+      <button class="t-btn" onclick="startRestTimer(180)">۱۸۰s</button>
       <button class="t-btn stop" onclick="stopRestTimer()">■</button>
     </div>
   </div>
@@ -805,17 +887,17 @@
 <div class="modal-backdrop" id="jsonModal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>⚙️ ویرایش برنامه تمرینی (JSON)</h3>
+      <h3>⚙️ مدیریت ساختار برنامه (JSON)</h3>
       <button class="close-btn" onclick="closeJsonModal()">✕</button>
     </div>
-    <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
-      می‌توانید کد JSON برنامه جدید (شامل نام حرکات، تعداد ست‌ها `sets` و تکرارها `reps`) را در کادر زیر قرار دهید. همچنین با لمس بجِ «ست» یا «تکرار» روی هر کارت می‌توانید همان حرکت را مستقیم ویرایش کنید.
+    <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6;">
+      هر فایل JSON که وارد کنید، برنامه به‌طور هوشمند تعداد هفته‌ها، جلسات، ست‌ها، تکرارها، RIR و زمان استراحت را از متن حرکات یا فیلدهای مجزا استخراج و اعمال می‌کند.
     </p>
     <textarea class="json-editor" id="jsonTextarea" spellcheck="false"></textarea>
     <div class="modal-footer-btns">
       <div style="display: flex; gap: 6px; flex-wrap: wrap;">
         <button class="m-btn" onclick="copyJsonSchema()">کپی JSON</button>
-        <button class="m-btn" onclick="resetDefaultSchema()">بازگشت به برنامه پیش‌فرض</button>
+        <button class="m-btn" onclick="resetDefaultSchema()">بازگشت به برنامه ۵ روزه پیش‌فرض</button>
         <button class="m-btn danger" onclick="clearAllLogs()">ریست تیک‌های دوره</button>
       </div>
       <button class="m-btn primary" onclick="saveCustomSchema()">ذخیره و اعمال برنامه</button>
@@ -824,90 +906,103 @@
 </div>
 
 <script>
-  // دیتابیس کامل حرکات به همراه ست و تکرار صریح برای هر حرکت
+  // برنامه ۵ روزه تخصصی بیومکانیکی به عنوان پیش‌فرض
   const defaultProgram = {
-    title: "برنامه بدنسازی تخصصی ۴ روزه",
-    subtitle: "تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی • نسخه اختصاصی فاز A4",
-    totalWeeks: 4,
-    sessions: [
+    "title": "برنامه بدنسازی ۵ روزه تخصصی (نسخه اصلاح‌شده بیومکانیکی)",
+    "subtitle": "اولویت بازسازی بالاتنه • هایپرتروفی در وضعیت کشیده (Lengthened Bias) • هفته‌های ۲ تا ۶",
+    "totalWeeks": 6,
+    "sessions": [
       {
-        id: "s1",
-        shortName: "جلسه ۱",
-        title: "جلسه ۱: سینه، زیربغل و بازو (بخش اول)",
-        tag: "سوپرست آنتاگونیست",
-        color: "#f43f5e",
-        exercises: [
-          { id: "e1_1", name: "سینه هالتر / لت دست معمولی", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e1_2", name: "بالا سینه هالتر / قایقی", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e1_3", name: "زیر سینه هالتر / اچ بالا", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e1_4", name: "جلو بازو ایستاده بارو هالتر (باز و بسته) / سیم‌کش لت پشت", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e1_5", name: "جلو بازو سیم‌کش جفتی پشت / پشت بازو چکشی سیم هفت", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e1_6", name: "جلو بازو دمبل سنگین ایستاده / پشت بازو طناب", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" }
+        "id": "s1",
+        "title": "جلسه ۱: Push (سینه، سرشانه، پشت بازو)",
+        "tag": "تنش مکانیکی و کشش پایه",
+        "color": "#ef4444",
+        "exercises": [
+          { "id": "e1_1", "name": "پرس سینه هالتر یا دستگاه همر (۴ ست × ۶-۸ تکرار - RIR 1 - استراحت ۳ دقیقه)" },
+          { "id": "e1_2", "name": "پرس بالا سینه دمبل با مکث ۱ ثانیه‌ای در پایین (۳ ست × ۸-۱۰ تکرار - RIR 1)" },
+          { "id": "e1_3", "name": "فلای سینه سیم‌کش نشسته روی میز (۳ ست × ۱۰-۱۲ تکرار - RIR 0 - تمرکز بر نیمه پایین دامنه)" },
+          { "id": "e1_4", "name": "پرس سرشانه دمبل نشسته (میز با زاویه ۷۵ درجه) (۳ ست × ۸-۱۰ تکرار - RIR 1)" },
+          { "id": "e1_5", "name": "نشر جانب سیم‌کش از پشت کمر (قرقره در ارتفاع ران) (۴ ست × ۱۲-۱۵ تکرار - RIR 0)" },
+          { "id": "e1_6", "name": "پشت بازو سیم‌کش طناب از پشت سر (Overhead) (۴ ست × ۱۰-۱۲ تکرار - RIR 0)" },
+          { "id": "e1_7", "name": "پشت بازو تک‌دست سیم‌کش از بغل (Cross-body) (۳ ست × ۱۰-۱۲ تکرار - RIR 1)" }
         ]
       },
       {
-        id: "s2",
-        shortName: "جلسه ۲",
-        title: "جلسه ۲: سرشانه، کول و پا (بخش اول)",
-        tag: "داون‌ست و چهارست",
-        color: "#06b6d4",
-        exercises: [
-          { id: "e2_1", name: "نشر جانب دمبل", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_2", name: "پرس سرشانه اسمیت از جلو", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_3", name: "پرس سرشانه اسمیت از عقب", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_4", name: "نشر عقب روی میز خم سنگین", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_5", name: "نشر سیم‌کش صندلی", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_6", name: "کول", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_7", name: "هاک اسکوات", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_8", name: "اسکوات", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_9", name: "پشت پا ایستاده", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e2_10", name: "باسن", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" }
+        "id": "s2",
+        "title": "جلسه ۲: Pull (پشت، دلتوئید خلفی، جلو بازو)",
+        "tag": "ضخامت تنه و ثبات سینه",
+        "color": "#3b82f6",
+        "exercises": [
+          { "id": "e2_1", "name": "زیربغل سیم‌کش دست باز از جلو (۴ ست × ۸-۱۰ تکرار - RIR 1 - کشش کامل در بالا)" },
+          { "id": "e2_2", "name": "زیربغل اچ دستگاه تکیه‌گاه‌دار (Chest-Supported Row) دست باز (۴ ست × ۸-۱۰ تکرار - RIR 1)" },
+          { "id": "e2_3", "name": "زیربغل قایقی تک‌دست سیم‌کش (تمرکز بر لت) (۳ ست × ۱۰-۱۲ تکرار - RIR 1)" },
+          { "id": "e2_4", "name": "نشر خم سیم‌کش ضربدری ایستاده (Reverse Cable Fly) (۴ ست × ۱۲-۱۵ تکرار - RIR 0)" },
+          { "id": "e2_5", "name": "جلو بازو سیم‌کش بایژین (پشت به دستگاه - تک‌دست) (۴ ست × ۱۰-۱۲ تکرار - RIR 0)" },
+          { "id": "e2_6", "name": "جلو بازو هالتر EZ لاری (Preacher Curl) (۳ ست × ۸-۱۰ تکرار - RIR 1)" }
         ]
       },
       {
-        id: "s3",
-        shortName: "جلسه ۳",
-        title: "جلسه ۳: سینه، زیربغل، بازو و شکم (بخش دوم)",
-        tag: "پمپ عضلانی + کور",
-        color: "#10b981",
-        exercises: [
-          { id: "e3_1", name: "خط سینه دستگاه / قایقی دست باز", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e3_2", name: "بالا سینه دستگاه / اچ پایین", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e3_3", name: "پروانه / اره‌ای جفت میز", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e3_4", name: "کراس اور بالا / فردی بغل", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e3_5", name: "زیر شکم / فیله / پهلو کرانچ سیم", sets: "۴ ست (تری‌ست)", reps: "۱۲ تا ۱۵ تکرار" },
-          { id: "e3_6", name: "جلو بازو چکشی هالتر (۳ حالت) / پشت بازو طناب پایین", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار (۳ حالت)" },
-          { id: "e3_7", name: "جلو بازو لاری / پشت بازو سیم‌کش بالا سر", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e3_8", name: "جلو بازو سیم‌کش مچ برعکس / پشت بازو سیم‌کش مچ برعکس", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e3_9", name: "مچ و ساعد (دستگاه یا دمبل)", sets: "۴ ست", reps: "۱۲ تا ۱۵ تکرار" }
+        "id": "s3",
+        "title": "جلسه ۳: Legs A (تمرکز چهارسر و اصلاح تقارن)",
+        "tag": "حداقل خستگی محوری / تک‌پا",
+        "color": "#10b981",
+        "exercises": [
+          { "id": "e3_1", "name": "هاک اسکوات دستگاه (یا اسکوات اسمیت پا جلو) (۴ ست × ۸-۱۰ تکرار - RIR 1 - عمق کامل)" },
+          { "id": "e3_2", "name": "بلغاری اسکوات دمبل (شروع با پای چپ) (۳ ست × ۸-۱۰ تکرار هر پا - RIR 1)" },
+          { "id": "e3_3", "name": "جلو ران دستگاه تک‌پا (شروع با پای چپ - مکث در پایین) (۳ ست × ۱۲-۱۵ تکرار - RIR 0)" },
+          { "id": "e3_4", "name": "پشت پا نشسته دستگاه (Seated Leg Curl) (۳ ست × ۱۰-۱۲ تکرار - RIR 0)" },
+          { "id": "e3_5", "name": "ساق پا ایستاده دستگاه (یا با پرس پا) (۴ ست × ۱۰-۱۲ تکرار - مکث ۲ ثانیه در کشش پایین)" }
         ]
       },
       {
-        id: "s4",
-        shortName: "جلسه ۴",
-        title: "جلسه ۴: سرشانه، کول و پا (بخش دوم)",
-        tag: "تراکم عضلانی و حجم",
-        color: "#f59e0b",
-        exercises: [
-          { id: "e4_1", name: "پرس سرشانه دمبل", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_2", name: "نشر از جلو سیم‌کش با طناب", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_3", name: "نشر از جانب سیم‌کش از پشت", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_4", name: "کول سیم‌کش دسته بلند / شراگ دست باز", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_5", name: "جلو ران دستگاه", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_6", name: "پشت پا هالتر", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_7", name: "پرس پا", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
-          { id: "e4_8", name: "خیاطه (داخل پا و بیرون پا)", sets: "۴ ست", reps: "۱۰ تا ۱۲ تکرار" },
-          { id: "e4_9", name: "ساق پا", sets: "۴ ست", reps: "۱۲ تا ۱۵ تکرار" },
-          { id: "e4_10", name: "فیله کمر", sets: "۴ ست", reps: "۱۲ تا ۱۵ تکرار" }
+        "id": "s4",
+        "title": "جلسه ۴: Upper Body (بالاتنه با ست‌های جفت‌شده)",
+        "tag": "Paired Sets (۹۰ ثانیه استراحت بین هر حرکت)",
+        "color": "#8b5cf6",
+        "exercises": [
+          { "id": "e4_1", "name": "[جفت ۱] پرس سینه دمبل دست موازی / زیربغل قایقی دست جمع (۴ ست × ۸-۱۰ تکرار - ۹۰ ثانیه استراحت بین هر کدام)" },
+          { "id": "e4_2", "name": "[جفت ۲] لت سیم‌کش مچ برعکس / پارالل (یا پرس زیرسینه دستگاه) (۳ ست × ۱۰-۱۲ تکرار - ۹۰ ثانیه استراحت بین هر کدام)" },
+          { "id": "e4_3", "name": "نشر جانب دمبل نشسته (۳ ست × ۱۲-۱۵ تکرار + تکرارهای نیمه در انتهای ست)" },
+          { "id": "e4_4", "name": "[جفت ۳] پشت بازو هالتر EZ خوابیده (Skullcrusher) / جلو بازو چکشی دمبل (۴ ست × ۱۰-۱۲ تکرار - ۶۰ ثانیه استراحت)" },
+          { "id": "e4_5", "name": "شراگ هالتر یا اسمیت دست باز (Kelso Shrug روی میز شیب‌دار) (۳ ست × ۱۰-۱۲ تکرار - RIR 1)" }
+        ]
+      },
+      {
+        "id": "s5",
+        "title": "جلسه ۵: Posterior & Core (زنجیره خلفی و شکم مکانیکی)",
+        "tag": "کشش همسترینگ و هایپرتروفی شکم",
+        "color": "#f59e0b",
+        "exercises": [
+          { "id": "e5_1", "name": "ددلیفت رومانیایی دمبل با بند لیفت (۳ ست × ۸-۱۰ تکرار - RIR 2 - توقف در زیر زانو)" },
+          { "id": "e5_2", "name": "پشت پا نشسته دستگاه تک‌پا (شروع با پای چپ) (۳ ست × ۱۰-۱۲ تکرار - RIR 0)" },
+          { "id": "e5_3", "name": "پرس پا تک‌پا (پاشنه در بالاترین نقطه صفحه برای درگیری باسن/همسترینگ) (۳ ست × ۱۰-۱۲ تکرار)" },
+          { "id": "e5_4", "name": "داخل ران دستگاه (Hip Adduction) (۳ ست × ۱۲-۱۵ تکرار - RIR 1)" },
+          { "id": "e5_5", "name": "کرانچ سیم‌کش زانو زده (۴ ست × ۱۰-۱۵ تکرار - RIR 0 - گرد کردن کامل ستون فقرات)" },
+          { "id": "e5_6", "name": "زیرشکم آویزان از بارفیکس با جمع کردن لگن (Posterior Pelvic Tilt) (۴ ست × ناتوانی)" }
         ]
       }
     ]
   };
 
-  const KEY_SCHEMA = "custom_workout_schema_v2";
-  const KEY_LOGS = "workout_progress_logs_v1";
+  // لیست تم‌ها و فونت‌ها
+  const THEMES = [
+    { id: "cyber", label: "سایبر نئون" },
+    { id: "olympia", label: "المپیا طلایی" },
+    { id: "matrix", label: "ماتریکس" },
+    { id: "ultraviolet", label: "کهکشانی" },
+    { id: "daylight", label: "تیتانیوم روشن" }
+  ];
+
+  const FONTS = [
+    { id: "standard", label: "استاندارد (وزیر)" },
+    { id: "gym-bold", label: "درشت ورزشی (لاله‌زار)" },
+    { id: "compact", label: "فشرده و ظریف" }
+  ];
+
+  const KEY_SCHEMA = "biomech_workout_schema_v3";
+  const KEY_LOGS = "biomech_progress_logs_v3";
   const KEY_WEIGHTS = "workout_weights_notes_v1";
-  const KEY_UI_STATE = "workout_ui_state_v1";
+  const KEY_PREFS = "workout_ui_preferences_v3";
 
   let program = defaultProgram;
   let logs = {};
@@ -915,6 +1010,85 @@
   let currentWeek = 1;
   let currentSessionIdx = 0;
   let autoTimer = true;
+  let themeIdx = 0;
+  let fontIdx = 0;
+
+  // تبدیل اعداد فارسی به انگلیسی برای محاسبه ثانیه تایمر
+  function toEnglishDigits(str) {
+    return str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  }
+
+  // موتور هوشمند استخراج ست، تکرار، RIR، استراحت و نکته فنی از رشته متنی JSON
+  function parseExerciseData(ex) {
+    let rawTitle = (ex.name || "").trim();
+    let pairedTag = ex.pairedTag || null;
+    let sets = ex.sets || null;
+    let reps = ex.reps || null;
+    let rir = ex.rir || null;
+    let rest = ex.rest || null;
+    let note = ex.note || null;
+    let restSeconds = 90;
+
+    // ۱. تشخیص تگ جفت مثل [جفت ۱] در ابتدای رشته
+    const pairMatch = rawTitle.match(/^\[(.*?)\]\s*/);
+    if (pairMatch) {
+      pairedTag = pairMatch[1];
+      rawTitle = rawTitle.replace(pairMatch[0], '').trim();
+    }
+
+    // ۲. تشخیص آخرین پرانتز حاوی اطلاعات ست و تکرار (دارای کلمه "ست" یا علامت "×")
+    const specParenRegex = /\(([^()]*?(?:ست|×)[^()]*)\)\s*$/;
+    const specMatch = rawTitle.match(specParenRegex);
+
+    if (specMatch) {
+      const specContent = specMatch[1].trim();
+      rawTitle = rawTitle.replace(specParenRegex, '').trim();
+
+      // تفکیک بخش‌های داخل پرانتز با خط تیره " - " یا "+"
+      const segments = specContent.split(/\s+-\s+|\s+\+\s+/);
+      const extraNotes = [];
+
+      segments.forEach((seg, idx) => {
+        const s = seg.trim();
+        if (idx === 0 && s.includes('×')) {
+          const [st, rp] = s.split('×').map(x => x.trim());
+          if (!sets) sets = st;
+          if (!reps) reps = rp;
+        } else if (/RIR/i.test(s)) {
+          if (!rir) rir = s;
+        } else if (s.includes('استراحت') || s.includes('ثانیه') || s.includes('دقیقه')) {
+          if (!rest) rest = s;
+        } else {
+          extraNotes.push(s);
+        }
+      });
+
+      if (extraNotes.length > 0 && !note) {
+        note = extraNotes.join(' • ');
+      }
+    }
+
+    // ۳. محاسبه زمان استراحت به ثانیه برای تایمر خودکار
+    if (rest) {
+      const engRest = toEnglishDigits(rest);
+      const numMatch = engRest.match(/(\d+)/);
+      if (numMatch) {
+        const val = parseInt(numMatch[1], 10);
+        restSeconds = rest.includes('دقیقه') ? val * 60 : val;
+      }
+    }
+
+    return {
+      cleanName: rawTitle,
+      pairedTag,
+      sets: sets || "۳-۴ ست",
+      reps: reps || "۸-۱۲ تکرار",
+      rir,
+      rest,
+      note,
+      restSeconds
+    };
+  }
 
   function loadAll() {
     try {
@@ -933,32 +1107,55 @@
     } catch (e) { weights = {}; }
 
     try {
-      const savedUI = JSON.parse(localStorage.getItem(KEY_UI_STATE));
-      if (savedUI) {
-        currentWeek = savedUI.week || 1;
-        currentSessionIdx = savedUI.sessionIdx || 0;
-        if (typeof savedUI.autoTimer === "boolean") autoTimer = savedUI.autoTimer;
+      const prefs = JSON.parse(localStorage.getItem(KEY_PREFS));
+      if (prefs) {
+        currentWeek = prefs.week || 1;
+        currentSessionIdx = prefs.sessionIdx || 0;
+        if (typeof prefs.autoTimer === "boolean") autoTimer = prefs.autoTimer;
+        themeIdx = prefs.themeIdx || 0;
+        fontIdx = prefs.fontIdx || 0;
       }
     } catch (e) {}
 
     if (currentSessionIdx >= program.sessions.length) currentSessionIdx = 0;
+    if (currentWeek > (program.totalWeeks || 6)) currentWeek = 1;
+    applyThemeAndFont();
+  }
+
+  function savePreferences() {
+    localStorage.setItem(KEY_PREFS, JSON.stringify({
+      week: currentWeek,
+      sessionIdx: currentSessionIdx,
+      autoTimer,
+      themeIdx,
+      fontIdx
+    }));
+  }
+
+  function applyThemeAndFont() {
+    const t = THEMES[themeIdx] || THEMES[0];
+    const f = FONTS[fontIdx] || FONTS[0];
+    document.documentElement.setAttribute("data-theme", t.id);
+    document.documentElement.setAttribute("data-font", f.id);
+    document.getElementById("themeBtn").innerText = `🎨 تم: ${t.label}`;
+    document.getElementById("fontBtn").innerText = `🅰️ فونت: ${f.label}`;
+  }
+
+  function cycleTheme() {
+    themeIdx = (themeIdx + 1) % THEMES.length;
+    applyThemeAndFont();
+    savePreferences();
+  }
+
+  function cycleFont() {
+    fontIdx = (fontIdx + 1) % FONTS.length;
+    applyThemeAndFont();
+    savePreferences();
   }
 
   function saveLogs() {
     localStorage.setItem(KEY_LOGS, JSON.stringify(logs));
     updateOverallProgress();
-  }
-
-  function saveSchema() {
-    localStorage.setItem(KEY_SCHEMA, JSON.stringify(program));
-  }
-
-  function saveUIState() {
-    localStorage.setItem(KEY_UI_STATE, JSON.stringify({
-      week: currentWeek,
-      sessionIdx: currentSessionIdx,
-      autoTimer: autoTimer
-    }));
   }
 
   function saveWeight(exId, val) {
@@ -987,10 +1184,10 @@
 
   function renderApp() {
     const activeSession = program.sessions[currentSessionIdx];
-    const themeColor = activeSession.color || "#06b6d4";
-    document.documentElement.style.setProperty('--active-theme', themeColor);
+    const sColor = activeSession.color || "var(--theme-primary)";
+    document.documentElement.style.setProperty('--active-session-color', sColor);
 
-    document.getElementById("uiTitle").innerText = program.title || "برنامه تمرینی";
+    document.getElementById("uiTitle").innerText = program.title || "برنامه بدنسازی";
     document.getElementById("uiSubtitle").innerText = program.subtitle || "";
     document.getElementById("periodLabel").innerText = `پیشرفت کل دوره (${program.totalWeeks || 4} هفته)`;
 
@@ -1005,7 +1202,6 @@
     const container = document.getElementById("weekTabs");
     container.innerHTML = "";
     const totalWeeks = program.totalWeeks || 4;
-    container.style.gridTemplateColumns = `repeat(${totalWeeks}, 1fr)`;
 
     for (let w = 1; w <= totalWeeks; w++) {
       const btn = document.createElement("button");
@@ -1014,7 +1210,7 @@
       btn.innerText = `هفته ${w}`;
       btn.onclick = () => {
         currentWeek = w;
-        saveUIState();
+        savePreferences();
         renderApp();
       };
       container.appendChild(btn);
@@ -1024,56 +1220,44 @@
   function renderSessionTabs() {
     const container = document.getElementById("sessionTabs");
     container.innerHTML = "";
-    container.style.gridTemplateColumns = `repeat(${program.sessions.length}, 1fr)`;
 
     program.sessions.forEach((s, idx) => {
       const prog = getSessionProgress(currentWeek, s);
       const isComplete = prog.doneCount === prog.total && prog.total > 0;
       const tab = document.createElement("div");
       tab.className = `session-tab ${idx === currentSessionIdx ? 'active' : ''} ${isComplete ? 'is-complete' : ''}`;
-      if (idx === currentSessionIdx) {
-        tab.style.borderColor = s.color || "var(--accent-cyan)";
-      }
+
+      // استخراج نام کوتاه جلسه (مثلاً "جلسه ۱: Push")
+      const shortTitle = s.shortName || s.title.split('(')[0].trim();
 
       tab.innerHTML = `
-        <span class="session-tab-title">${s.shortName || `جلسه ${idx + 1}`}</span>
+        <span class="session-tab-title">${shortTitle}</span>
         <span class="session-tab-count">${isComplete ? 'تکمیل ✓' : `${prog.doneCount}/${prog.total}`}</span>
       `;
       tab.onclick = () => {
         currentSessionIdx = idx;
-        saveUIState();
+        savePreferences();
         renderApp();
       };
       container.appendChild(tab);
     });
   }
 
-  function formatMovementsHTML(rawName) {
-    const parts = rawName.split('/').map(p => p.trim()).filter(Boolean);
+  function formatMovementsHTML(cleanName, pairedTag) {
+    const parts = cleanName.split(/\s+\/\s+/).map(p => p.trim()).filter(Boolean);
+    let html = pairedTag ? `<div class="paired-header-badge">🔗 ${pairedTag}</div>` : '';
+
     if (parts.length === 1) {
-      return `<div class="movement-item">${parts[0]}</div>`;
+      html += `<div class="movement-item">${parts[0]}</div>`;
+      return html;
     }
 
-    const badgeLabel = parts.length === 2 ? "⚡ سوپرست" : `🔥 تری‌ست (${parts.length} حرکتی)`;
-    return parts.map((part, idx) => `
+    html += parts.map((part, idx) => `
       <div class="movement-item">${part}</div>
-      ${idx < parts.length - 1 ? `<div class="superset-connector">${badgeLabel} با حرکت بعدی ↓</div>` : ''}
+      ${idx < parts.length - 1 ? `<div class="superset-connector">⚡ جفت‌شده / سوپرست با حرکت بعدی ↓</div>` : ''}
     `).join('');
-  }
 
-  // ویرایش مستقیم تعداد ست یا تکرار با کلیک روی بج آن حرکت
-  function editExerciseSpec(exId, field, label) {
-    const session = program.sessions[currentSessionIdx];
-    const ex = session.exercises.find(x => x.id === exId);
-    if (!ex) return;
-
-    const currentVal = ex[field] || (field === 'sets' ? '۴ ست' : '۸ تا ۱۲ تکرار');
-    const newVal = prompt(`ویرایش ${label} برای حرکت «${ex.name}»:`, currentVal);
-    if (newVal !== null && newVal.trim() !== "") {
-      ex[field] = newVal.trim();
-      saveSchema();
-      renderApp();
-    }
+    return html;
   }
 
   function renderActiveSession() {
@@ -1086,7 +1270,7 @@
 
     const btnAll = document.getElementById("btnCompleteSession");
     btnAll.className = `btn-complete-all ${allDone ? 'done' : ''}`;
-    btnAll.innerText = allDone ? "جلسه تکمیل شد ✓" : `تکمیل کل جلسه (${prog.doneCount}/${prog.total})`;
+    btnAll.innerText = allDone ? "جلسه تکمیل شد ✓" : `تکمیل یکجای جلسه (${prog.doneCount}/${prog.total})`;
 
     const list = document.getElementById("exercisesContainer");
     list.innerHTML = "";
@@ -1094,12 +1278,7 @@
     session.exercises.forEach((ex, idx) => {
       const done = isExDone(currentWeek, session.id, ex.id);
       const savedWeight = weights[ex.id] || "";
-      const isMulti = ex.name.includes('/');
-
-      // مقداردهی ست، تکرار و استراحت (همراه با مقدار پیش‌فرض ایمن)
-      const setsText = ex.sets || "۴ ست";
-      const repsText = ex.reps || "۸ تا ۱۲ تکرار";
-      const restText = ex.rest || (isMulti ? "استراحت: ۶۰-۹۰ ثانیه" : "استراحت: ۴۵-۶۰ ثانیه");
+      const parsed = parseExerciseData(ex);
 
       const card = document.createElement("div");
       card.className = `exercise-card ${done ? 'completed' : ''}`;
@@ -1108,29 +1287,25 @@
         <div class="card-top">
           <div class="ex-number-badge">${done ? '✓' : idx + 1}</div>
           <div class="movements-wrapper">
-            ${formatMovementsHTML(ex.name)}
+            ${formatMovementsHTML(parsed.cleanName, parsed.pairedTag)}
             <div class="specs-row">
-              <span class="spec-pill spec-sets" onclick="editExerciseSpec('${ex.id}', 'sets', 'تعداد ست')" title="برای تغییر تعداد ست ضربه بزنید">
-                🎯 ${setsText}
-              </span>
-              <span class="spec-pill spec-reps" onclick="editExerciseSpec('${ex.id}', 'reps', 'تعداد تکرار (Reps)')" title="برای تغییر تعداد تکرار ضربه بزنید">
-                🔄 ${repsText}
-              </span>
-              <span class="spec-pill spec-rest">
-                ⏱️ ${restText}
-              </span>
+              <span class="spec-pill spec-sets">🎯 ${parsed.sets}</span>
+              <span class="spec-pill spec-reps">🔄 ${parsed.reps}</span>
+              ${parsed.rir ? `<span class="spec-pill spec-rir">🔥 ${parsed.rir}</span>` : ''}
+              ${parsed.rest ? `<span class="spec-pill spec-rest">⏱️ ${parsed.rest}</span>` : ''}
+              ${parsed.note ? `<span class="spec-pill spec-note">📌 ${parsed.note}</span>` : ''}
             </div>
           </div>
         </div>
         <div class="card-bottom-actions">
           <div class="weight-input-wrap">
             <span>وزنه:</span>
-            <input type="text" class="weight-input" placeholder="مثلا 60kg" 
+            <input type="text" class="weight-input" placeholder="مثلا 70kg" 
                    value="${savedWeight}" 
                    oninput="saveWeight('${ex.id}', this.value)">
           </div>
           <button class="btn-check-wide ${done ? 'done' : ''}" 
-                  onclick="toggleExercise('${session.id}', '${ex.id}')">
+                  onclick="toggleExercise('${session.id}', '${ex.id}', ${parsed.restSeconds})">
             <span>${done ? 'انجام شد ✓' : 'ثبت انجام حرکت'}</span>
           </button>
         </div>
@@ -1140,7 +1315,7 @@
     });
   }
 
-  function toggleExercise(sId, eId) {
+  function toggleExercise(sId, eId, restSeconds = 90) {
     if (!logs[currentWeek]) logs[currentWeek] = {};
     if (!logs[currentWeek][sId]) logs[currentWeek][sId] = {};
 
@@ -1148,10 +1323,7 @@
     logs[currentWeek][sId][eId] = newState;
 
     if (newState && autoTimer) {
-      const session = program.sessions[currentSessionIdx];
-      const ex = session.exercises.find(x => x.id === eId);
-      const isSuperset = ex && ex.name.includes('/');
-      startRestTimer(isSuperset ? 90 : 60);
+      startRestTimer(restSeconds || 90);
     }
 
     saveLogs();
@@ -1200,7 +1372,7 @@
 
   function toggleAutoTimer() {
     autoTimer = !autoTimer;
-    saveUIState();
+    savePreferences();
     updateAutoTimerUI();
   }
 
@@ -1264,6 +1436,7 @@
     document.getElementById("timerBar").style.width = `${pct}%`;
   }
 
+  // مدیریت مدال JSON
   function openJsonModal() {
     document.getElementById("jsonTextarea").value = JSON.stringify(program, null, 2);
     document.getElementById("jsonModal").classList.add("open");
@@ -1275,32 +1448,34 @@
 
   function copyJsonSchema() {
     navigator.clipboard.writeText(document.getElementById("jsonTextarea").value)
-      .then(() => alert("کد JSON برنامه کپی شد."));
+      .then(() => alert("کد JSON کپی شد."));
   }
 
   function saveCustomSchema() {
     try {
       const parsed = JSON.parse(document.getElementById("jsonTextarea").value);
       if (!parsed.sessions || !Array.isArray(parsed.sessions)) {
-        throw new Error("کلید sessions یافت نشد.");
+        throw new Error("آرایه sessions در فایل JSON یافت نشد.");
       }
       program = parsed;
-      saveSchema();
+      localStorage.setItem(KEY_SCHEMA, JSON.stringify(program));
       currentSessionIdx = 0;
       currentWeek = 1;
-      saveUIState();
+      savePreferences();
       closeJsonModal();
       renderApp();
     } catch (e) {
-      alert("ساختار JSON معتبر نیست: " + e.message);
+      alert("خطا در ساختار JSON: " + e.message);
     }
   }
 
   function resetDefaultSchema() {
-    if (confirm("برنامه به نسخه اولیه فاز A4 بازگردانده شود؟")) {
+    if (confirm("برنامه به نسخه ۵ روزه بیومکانیکی پیش‌فرض بازگردد؟")) {
       program = JSON.parse(JSON.stringify(defaultProgram));
       localStorage.removeItem(KEY_SCHEMA);
       currentSessionIdx = 0;
+      currentWeek = 1;
+      savePreferences();
       closeJsonModal();
       renderApp();
     }
