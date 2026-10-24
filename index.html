@@ -42,21 +42,21 @@
       background-color: var(--bg-base);
       color: var(--text-primary);
       min-height: 100vh;
-      padding: 12px 12px 120px 12px;
+      padding: 12px 12px 125px 12px;
       background-image: 
         radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 60%);
       background-attachment: fixed;
     }
 
     .app-shell {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
 
-    /* نوار بالایی و وضعیت کل دوره */
+    /* هدر بالایی */
     .top-bar {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
@@ -70,13 +70,12 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .brand-title h1 {
       font-size: 1.25rem;
       font-weight: 900;
-      letter-spacing: -0.3px;
       color: #fff;
     }
 
@@ -86,15 +85,33 @@
       margin-top: 3px;
     }
 
-    .top-actions {
+    .header-badges {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .h-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .h-badge.gold {
+      color: var(--accent-amber);
+      border-color: rgba(245, 158, 11, 0.3);
+      background: rgba(245, 158, 11, 0.1);
     }
 
     .icon-btn {
       background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
+      border: 1px solid var(--border-highlight);
+      color: var(--text-primary);
       height: 36px;
       padding: 0 12px;
       border-radius: 10px;
@@ -105,12 +122,12 @@
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
+      flex-shrink: 0;
     }
 
-    .icon-btn:hover, .icon-btn:active {
-      color: #fff;
+    .icon-btn:hover {
       border-color: var(--accent-cyan);
-      background: rgba(6, 182, 212, 0.12);
+      color: var(--accent-cyan);
     }
 
     /* نوار پیشرفت کلی */
@@ -141,7 +158,7 @@
       width: 0%;
       background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
       border-radius: 999px;
-      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: width 0.35s ease;
     }
 
     /* انتخاب‌گر هفته‌ها */
@@ -164,7 +181,6 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
-      position: relative;
     }
 
     .week-pill.active {
@@ -175,13 +191,11 @@
     }
 
     .week-pill.week-done::after {
-      content: '✓';
+      content: ' ✓';
       color: var(--accent-green);
-      font-size: 0.7rem;
-      margin-right: 4px;
     }
 
-    /* انتخاب‌گر جلسات تمرینی (تک‌جلسه‌ای برای تمرکز بالا در باشگاه) */
+    /* تب‌های جلسات */
     .session-tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -192,22 +206,20 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
-      padding: 10px 8px;
+      padding: 10px 6px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
     }
 
     .session-tab.active {
       background: var(--bg-surface-elevated);
       border-color: var(--active-theme);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
     .session-tab-title {
@@ -239,18 +251,18 @@
       background: linear-gradient(145deg, var(--bg-surface-elevated), var(--bg-surface));
       border: 1px solid var(--border-highlight);
       border-radius: 20px;
-      padding: 18px;
+      padding: 16px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       border-right: 4px solid var(--active-theme);
     }
 
     .hero-info {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .hero-tag {
@@ -264,18 +276,9 @@
     }
 
     .hero-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 900;
       color: #fff;
-      line-height: 1.3;
-    }
-
-    .hero-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      flex-shrink: 0;
     }
 
     .btn-complete-all {
@@ -287,8 +290,8 @@
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .btn-complete-all.done {
@@ -297,28 +300,27 @@
       color: var(--accent-green);
     }
 
-    /* لیست کارت‌های تمرین */
+    /* لیست کارت‌های حرکات */
     .exercises-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .exercise-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: 18px;
-      padding: 14px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      transition: all 0.2s ease;
     }
 
     .exercise-card.completed {
       background: rgba(15, 21, 35, 0.55);
-      border-color: rgba(16, 185, 129, 0.3);
+      border-color: rgba(16, 185, 129, 0.35);
     }
 
     .card-top {
@@ -329,19 +331,18 @@
     }
 
     .ex-number-badge {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-highlight);
-      color: var(--text-secondary);
-      font-weight: 800;
-      font-size: 0.8rem;
+      color: var(--text-primary);
+      font-weight: 900;
+      font-size: 0.85rem;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-top: 2px;
     }
 
     .exercise-card.completed .ex-number-badge {
@@ -358,13 +359,10 @@
     }
 
     .movement-item {
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       font-weight: 800;
       color: var(--text-primary);
       line-height: 1.4;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .exercise-card.completed .movement-item {
@@ -379,21 +377,64 @@
       gap: 4px;
       font-size: 0.7rem;
       font-weight: 800;
-      color: var(--accent-amber);
-      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.14);
+      border: 1px solid rgba(168, 85, 247, 0.3);
       padding: 2px 8px;
       border-radius: 6px;
       width: fit-content;
-      margin: 2px 0;
     }
 
-    /* بخش پایین کارت: ثبت وزنه + دکمه کشیده انجام حرکت */
+    /* نوار مشخصات ست، تکرار و استراحت روی هر کارت */
+    .specs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .spec-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .spec-pill:active {
+      transform: scale(0.95);
+    }
+
+    .spec-sets {
+      background: rgba(6, 182, 212, 0.14);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .spec-reps {
+      background: rgba(245, 158, 11, 0.14);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .spec-rest {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      cursor: default;
+    }
+
+    /* بخش اکشن پایین هر کارت: ثبت وزنه + دکمه کشیده */
     .card-bottom-actions {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .weight-input-wrap {
@@ -404,9 +445,8 @@
       border-radius: 12px;
       padding: 0 10px;
       height: 42px;
-      width: 135px;
+      width: 140px;
       flex-shrink: 0;
-      transition: border-color 0.2s;
     }
 
     .weight-input-wrap:focus-within {
@@ -414,7 +454,7 @@
     }
 
     .weight-input-wrap span {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       margin-left: 6px;
       white-space: nowrap;
@@ -432,17 +472,11 @@
       direction: ltr;
     }
 
-    .weight-input::placeholder {
-      color: #475569;
-      font-weight: 500;
-    }
-
-    /* دکمه کشیده و حرفه‌ای تکمیل حرکت */
     .btn-check-wide {
       flex: 1;
       height: 42px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       background: var(--bg-surface-elevated);
       color: var(--text-primary);
       font-size: 0.85rem;
@@ -452,35 +486,58 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .btn-check-wide:active {
-      transform: scale(0.97);
+      transition: all 0.2s;
     }
 
     .btn-check-wide.done {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(6, 182, 212, 0.2));
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.2));
       border-color: var(--accent-green);
       color: #34d399;
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
     }
 
-    /* تایمر استراحت هوشمند و شناور در پایین صفحه */
+    /* کارت‌های راهنمای پایین صفحه (مطابق تصویر اصلی) */
+    .guidelines-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .guide-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .guide-box h4 {
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* داک شناور تایمر */
     .smart-timer-dock {
       position: fixed;
-      bottom: 14px;
+      bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
       width: calc(100% - 24px);
-      max-width: 656px;
-      background: rgba(15, 21, 35, 0.94);
+      max-width: 696px;
+      background: rgba(15, 21, 35, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-highlight);
       border-radius: 20px;
       padding: 10px 14px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -505,7 +562,6 @@
       font-size: 1.35rem;
       font-weight: 900;
       color: var(--accent-cyan);
-      letter-spacing: 1px;
     }
 
     .auto-timer-toggle {
@@ -536,17 +592,11 @@
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
       color: var(--text-primary);
-      padding: 6px 11px;
+      padding: 6px 10px;
       border-radius: 10px;
       font-size: 0.75rem;
       font-weight: 800;
       cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .t-btn:hover, .t-btn:active {
-      background: var(--accent-cyan);
-      color: #04131f;
     }
 
     .t-btn.stop {
@@ -570,7 +620,7 @@
       transition: width 0.25s linear;
     }
 
-    /* مدال‌ها (ویرایشگر JSON و راهنمای برنامه) */
+    /* مدال JSON */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -592,7 +642,7 @@
       border: 1px solid var(--border-highlight);
       border-radius: 22px;
       width: 100%;
-      max-width: 620px;
+      max-width: 640px;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -607,11 +657,6 @@
       align-items: center;
     }
 
-    .modal-head h3 {
-      font-size: 1.05rem;
-      font-weight: 900;
-    }
-
     .close-btn {
       background: transparent;
       border: none;
@@ -622,7 +667,7 @@
 
     .json-editor {
       width: 100%;
-      height: 280px;
+      height: 300px;
       background: #050811;
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
@@ -633,20 +678,6 @@
       direction: ltr;
       text-align: left;
       resize: vertical;
-    }
-
-    .guide-item {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 0.82rem;
-      line-height: 1.6;
-    }
-
-    .guide-item h4 {
-      margin-bottom: 4px;
-      font-size: 0.9rem;
     }
 
     .modal-footer-btns {
@@ -683,17 +714,21 @@
 
 <div class="app-shell">
 
-  <!-- هدر و وضعیت دوره -->
+  <!-- هدر اصلی -->
   <header class="top-bar">
     <div class="brand-row">
       <div class="brand-title">
         <h1 id="uiTitle">برنامه بدنسازی تخصصی ۴ روزه</h1>
-        <p id="uiSubtitle">تفکیک عضلانی و هایپرتروفی • نسخه فاز A4</p>
+        <p id="uiSubtitle">تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی • نسخه اختصاصی فاز A4</p>
       </div>
-      <div class="top-actions">
-        <button class="icon-btn" onclick="openGuideModal()" title="اصول و راهنمای تمرین">💡 اصول</button>
-        <button class="icon-btn" onclick="openJsonModal()" title="تغییر برنامه و پشتیبان‌گیری">⚙️ برنامه</button>
-      </div>
+      <button class="icon-btn" onclick="openJsonModal()">⚙️ مدیریت برنامه</button>
+    </div>
+
+    <div class="header-badges">
+      <span class="h-badge gold">⚡ سیستم سوپرست</span>
+      <span class="h-badge">🎯 ۴ جلسه در هفته</span>
+      <span class="h-badge">⏱️ استراحت: ۶۰-۹۰ ثانیه</span>
+      <span class="h-badge">📊 ۳ تا ۴ ست (۸ الی ۱۲ تکرار)</span>
     </div>
 
     <div class="overall-progress-box">
@@ -709,28 +744,42 @@
     <div class="week-selector" id="weekTabs"></div>
   </header>
 
-  <!-- تب‌های انتخاب جلسه (تمرکز تک‌جلسه‌ای برای محیط باشگاه) -->
+  <!-- تب‌های ۴ جلسه -->
   <nav class="session-tabs" id="sessionTabs"></nav>
 
-  <!-- بنر جلسه فعال -->
-  <section class="active-session-hero" id="sessionHero">
+  <!-- عنوان جلسه فعال -->
+  <section class="active-session-hero">
     <div class="hero-info">
       <span class="hero-tag" id="heroTag">سوپرست آنتاگونیست</span>
       <div class="hero-title" id="heroTitle">جلسه ۱: سینه، زیربغل و بازو</div>
     </div>
-    <div class="hero-controls">
-      <button class="btn-complete-all" id="btnCompleteSession" onclick="toggleEntireSession()">
-        تکمیل کل جلسه
-      </button>
+    <button class="btn-complete-all" id="btnCompleteSession" onclick="toggleEntireSession()">
+      تکمیل کل جلسه
+    </button>
+  </section>
+
+  <!-- لیست کارت‌های حرکات (همراه با ست و تکرار) -->
+  <main class="exercises-list" id="exercisesContainer"></main>
+
+  <!-- ۳ کارت راهنمای پایین صفحه دقیقاً مطابق تصویر -->
+  <section class="guidelines-section">
+    <div class="guide-box">
+      <h4 style="color: var(--accent-amber);">🔥 شدت و تکرارها</h4>
+      <p>عموماً ۳ تا ۴ ست با ۸ الی ۱۲ تکرار تا مرز ناتوانی مثبت و با فرم کاملاً صحیح و کنترل منفی.</p>
+    </div>
+    <div class="guide-box">
+      <h4 style="color: var(--accent-cyan);">⏱️ ریکاوری و استراحت</h4>
+      <p>بین ست‌های سوپرست ۶۰ تا ۹۰ ثانیه و حرکات تک‌مفصلی ۴۵ تا ۶۰ ثانیه استراحت کنید.</p>
+    </div>
+    <div class="guide-box">
+      <h4 style="color: var(--accent-green);">💧 تغذیه و هیدراتاسیون</h4>
+      <p>تأمین پروتئین کافی روزانه (۱.۶ الی ۲.۲ گرم بر کیلوگرم وزن)، نوشیدن مداوم آب و خواب کافی.</p>
     </div>
   </section>
 
-  <!-- لیست حرکات جلسه فعال -->
-  <main class="exercises-list" id="exercisesContainer"></main>
-
 </div>
 
-<!-- داک شناور تایمر هوشمند -->
+<!-- تایمر استراحت شناور -->
 <div class="smart-timer-dock">
   <div class="timer-top-row">
     <div class="timer-readout">
@@ -741,6 +790,7 @@
       </div>
     </div>
     <div class="timer-btn-group">
+      <button class="t-btn" onclick="startRestTimer(45)">۴۵s</button>
       <button class="t-btn" onclick="startRestTimer(60)">۶۰s</button>
       <button class="t-btn" onclick="startRestTimer(90)">۹۰s</button>
       <button class="t-btn stop" onclick="stopRestTimer()">■</button>
@@ -751,47 +801,22 @@
   </div>
 </div>
 
-<!-- مدال راهنما و نکات فنی -->
-<div class="modal-backdrop" id="guideModal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h3>📌 راهنمای فنی و اصول برنامه</h3>
-      <button class="close-btn" onclick="closeGuideModal()">✕</button>
-    </div>
-    <div class="guide-item">
-      <h4 style="color: var(--accent-amber);">🔥 شدت و تکرارها</h4>
-      <p>عموماً ۳ تا ۴ ست با ۸ الی ۱۲ تکرار تا مرز ناتوانی مثبت و با فرم کاملاً صحیح و کنترل منفی اجرا شود.</p>
-    </div>
-    <div class="guide-item">
-      <h4 style="color: var(--accent-cyan);">⏱️ ریکاوری و استراحت</h4>
-      <p>بین ست‌های سوپرست ۶۰ تا ۹۰ ثانیه و حرکات تک‌مفصلی ۴۵ تا ۶۰ ثانیه استراحت کنید.</p>
-    </div>
-    <div class="guide-item">
-      <h4 style="color: var(--accent-green);">💧 تغذیه و هیدراتاسیون</h4>
-      <p>تأمین پروتئین کافی روزانه (۱.۶ الی ۲.۲ گرم بر کیلوگرم وزن)، نوشیدن مداوم آب و خواب کافی.</p>
-    </div>
-    <div style="display: flex; justify-content: flex-end;">
-      <button class="m-btn primary" onclick="closeGuideModal()">متوجه شدم</button>
-    </div>
-  </div>
-</div>
-
 <!-- مدال مدیریت برنامه و JSON -->
 <div class="modal-backdrop" id="jsonModal">
   <div class="modal-box">
     <div class="modal-head">
-      <h3>⚙️ مدیریت برنامه و داده‌ها (JSON)</h3>
+      <h3>⚙️ ویرایش برنامه تمرینی (JSON)</h3>
       <button class="close-btn" onclick="closeJsonModal()">✕</button>
     </div>
     <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
-      برای تغییر برنامه، کد JSON جدید را در کادر زیر جایگذاری کرده و دکمه «ذخیره و اعمال برنامه» را بزنید.
+      می‌توانید کد JSON برنامه جدید (شامل نام حرکات، تعداد ست‌ها `sets` و تکرارها `reps`) را در کادر زیر قرار دهید. همچنین با لمس بجِ «ست» یا «تکرار» روی هر کارت می‌توانید همان حرکت را مستقیم ویرایش کنید.
     </p>
     <textarea class="json-editor" id="jsonTextarea" spellcheck="false"></textarea>
     <div class="modal-footer-btns">
       <div style="display: flex; gap: 6px; flex-wrap: wrap;">
         <button class="m-btn" onclick="copyJsonSchema()">کپی JSON</button>
-        <button class="m-btn" onclick="resetDefaultSchema()">برنامه پیش‌فرض</button>
-        <button class="m-btn danger" onclick="clearAllLogs()">ریست تیک‌ها</button>
+        <button class="m-btn" onclick="resetDefaultSchema()">بازگشت به برنامه پیش‌فرض</button>
+        <button class="m-btn danger" onclick="clearAllLogs()">ریست تیک‌های دوره</button>
       </div>
       <button class="m-btn primary" onclick="saveCustomSchema()">ذخیره و اعمال برنامه</button>
     </div>
@@ -799,11 +824,11 @@
 </div>
 
 <script>
+  // دیتابیس کامل حرکات به همراه ست و تکرار صریح برای هر حرکت
   const defaultProgram = {
     title: "برنامه بدنسازی تخصصی ۴ روزه",
-    subtitle: "تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی • فاز A4",
+    subtitle: "تفکیک عضلانی و هایپرتروفی • سیستم سوپرست و تک‌مفصلی • نسخه اختصاصی فاز A4",
     totalWeeks: 4,
-    defaultRestSeconds: 75,
     sessions: [
       {
         id: "s1",
@@ -812,12 +837,12 @@
         tag: "سوپرست آنتاگونیست",
         color: "#f43f5e",
         exercises: [
-          { id: "e1_1", name: "سینه هالتر / لت دست معمولی" },
-          { id: "e1_2", name: "بالا سینه هالتر / قایقی" },
-          { id: "e1_3", name: "زیر سینه هالتر / اچ بالا" },
-          { id: "e1_4", name: "جلو بازو ایستاده بارو هالتر (باز و بسته) / سیم‌کش لت پشت" },
-          { id: "e1_5", name: "جلو بازو سیم‌کش جفتی پشت / پشت بازو چکشی سیم هفت" },
-          { id: "e1_6", name: "جلو بازو دمبل سنگین ایستاده / پشت بازو طناب" }
+          { id: "e1_1", name: "سینه هالتر / لت دست معمولی", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e1_2", name: "بالا سینه هالتر / قایقی", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e1_3", name: "زیر سینه هالتر / اچ بالا", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e1_4", name: "جلو بازو ایستاده بارو هالتر (باز و بسته) / سیم‌کش لت پشت", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e1_5", name: "جلو بازو سیم‌کش جفتی پشت / پشت بازو چکشی سیم هفت", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e1_6", name: "جلو بازو دمبل سنگین ایستاده / پشت بازو طناب", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" }
         ]
       },
       {
@@ -827,16 +852,16 @@
         tag: "داون‌ست و چهارست",
         color: "#06b6d4",
         exercises: [
-          { id: "e2_1", name: "نشر جانب دمبل" },
-          { id: "e2_2", name: "پرس سرشانه اسمیت از جلو" },
-          { id: "e2_3", name: "پرس سرشانه اسمیت از عقب" },
-          { id: "e2_4", name: "نشر عقب روی میز خم سنگین" },
-          { id: "e2_5", name: "نشر سیم‌کش صندلی" },
-          { id: "e2_6", name: "کول" },
-          { id: "e2_7", name: "هاک اسکوات" },
-          { id: "e2_8", name: "اسکوات" },
-          { id: "e2_9", name: "پشت پا ایستاده" },
-          { id: "e2_10", name: "باسن" }
+          { id: "e2_1", name: "نشر جانب دمبل", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_2", name: "پرس سرشانه اسمیت از جلو", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_3", name: "پرس سرشانه اسمیت از عقب", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_4", name: "نشر عقب روی میز خم سنگین", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_5", name: "نشر سیم‌کش صندلی", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_6", name: "کول", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_7", name: "هاک اسکوات", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_8", name: "اسکوات", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_9", name: "پشت پا ایستاده", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e2_10", name: "باسن", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" }
         ]
       },
       {
@@ -846,15 +871,15 @@
         tag: "پمپ عضلانی + کور",
         color: "#10b981",
         exercises: [
-          { id: "e3_1", name: "خط سینه دستگاه / قایقی دست باز" },
-          { id: "e3_2", name: "بالا سینه دستگاه / اچ پایین" },
-          { id: "e3_3", name: "پروانه / اره‌ای جفت میز" },
-          { id: "e3_4", name: "کراس اور بالا / فردی بغل" },
-          { id: "e3_5", name: "زیر شکم / فیله / پهلو کرانچ سیم" },
-          { id: "e3_6", name: "جلو بازو چکشی هالتر (۳ حالت) / پشت بازو طناب پایین" },
-          { id: "e3_7", name: "جلو بازو لاری / پشت بازو سیم‌کش بالا سر" },
-          { id: "e3_8", name: "جلو بازو سیم‌کش مچ برعکس / پشت بازو سیم‌کش مچ برعکس" },
-          { id: "e3_9", name: "مچ و ساعد (دستگاه یا دمبل)" }
+          { id: "e3_1", name: "خط سینه دستگاه / قایقی دست باز", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e3_2", name: "بالا سینه دستگاه / اچ پایین", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e3_3", name: "پروانه / اره‌ای جفت میز", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e3_4", name: "کراس اور بالا / فردی بغل", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e3_5", name: "زیر شکم / فیله / پهلو کرانچ سیم", sets: "۴ ست (تری‌ست)", reps: "۱۲ تا ۱۵ تکرار" },
+          { id: "e3_6", name: "جلو بازو چکشی هالتر (۳ حالت) / پشت بازو طناب پایین", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار (۳ حالت)" },
+          { id: "e3_7", name: "جلو بازو لاری / پشت بازو سیم‌کش بالا سر", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e3_8", name: "جلو بازو سیم‌کش مچ برعکس / پشت بازو سیم‌کش مچ برعکس", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e3_9", name: "مچ و ساعد (دستگاه یا دمبل)", sets: "۴ ست", reps: "۱۲ تا ۱۵ تکرار" }
         ]
       },
       {
@@ -864,23 +889,22 @@
         tag: "تراکم عضلانی و حجم",
         color: "#f59e0b",
         exercises: [
-          { id: "e4_1", name: "پرس سرشانه دمبل" },
-          { id: "e4_2", name: "نشر از جلو سیم‌کش با طناب" },
-          { id: "e4_3", name: "نشر از جانب سیم‌کش از پشت" },
-          { id: "e4_4", name: "کول سیم‌کش دسته بلند / شراگ دست باز" },
-          { id: "e4_5", name: "جلو ران دستگاه" },
-          { id: "e4_6", name: "پشت پا هالتر" },
-          { id: "e4_7", name: "پرس پا" },
-          { id: "e4_8", name: "خیاطه (داخل پا و بیرون پا)" },
-          { id: "e4_9", name: "ساق پا" },
-          { id: "e4_10", name: "فیله کمر" }
+          { id: "e4_1", name: "پرس سرشانه دمبل", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_2", name: "نشر از جلو سیم‌کش با طناب", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_3", name: "نشر از جانب سیم‌کش از پشت", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_4", name: "کول سیم‌کش دسته بلند / شراگ دست باز", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_5", name: "جلو ران دستگاه", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_6", name: "پشت پا هالتر", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_7", name: "پرس پا", sets: "۴ ست", reps: "۸ تا ۱۲ تکرار" },
+          { id: "e4_8", name: "خیاطه (داخل پا و بیرون پا)", sets: "۴ ست", reps: "۱۰ تا ۱۲ تکرار" },
+          { id: "e4_9", name: "ساق پا", sets: "۴ ست", reps: "۱۲ تا ۱۵ تکرار" },
+          { id: "e4_10", name: "فیله کمر", sets: "۴ ست", reps: "۱۲ تا ۱۵ تکرار" }
         ]
       }
     ]
   };
 
-  // کلیدهای ذخیره‌سازی محلی (سازگار با دیتای قبلی)
-  const KEY_SCHEMA = "custom_workout_schema_v1";
+  const KEY_SCHEMA = "custom_workout_schema_v2";
   const KEY_LOGS = "workout_progress_logs_v1";
   const KEY_WEIGHTS = "workout_weights_notes_v1";
   const KEY_UI_STATE = "workout_ui_state_v1";
@@ -925,6 +949,10 @@
     updateOverallProgress();
   }
 
+  function saveSchema() {
+    localStorage.setItem(KEY_SCHEMA, JSON.stringify(program));
+  }
+
   function saveUIState() {
     localStorage.setItem(KEY_UI_STATE, JSON.stringify({
       week: currentWeek,
@@ -957,7 +985,6 @@
     });
   }
 
-  // رندر کل رابط کاربری
   function renderApp() {
     const activeSession = program.sessions[currentSessionIdx];
     const themeColor = activeSession.color || "#06b6d4";
@@ -1021,7 +1048,6 @@
     });
   }
 
-  // تفکیک هوشمند سوپرست‌ها و تری‌ست‌ها بر اساس علامت "/"
   function formatMovementsHTML(rawName) {
     const parts = rawName.split('/').map(p => p.trim()).filter(Boolean);
     if (parts.length === 1) {
@@ -1035,6 +1061,21 @@
     `).join('');
   }
 
+  // ویرایش مستقیم تعداد ست یا تکرار با کلیک روی بج آن حرکت
+  function editExerciseSpec(exId, field, label) {
+    const session = program.sessions[currentSessionIdx];
+    const ex = session.exercises.find(x => x.id === exId);
+    if (!ex) return;
+
+    const currentVal = ex[field] || (field === 'sets' ? '۴ ست' : '۸ تا ۱۲ تکرار');
+    const newVal = prompt(`ویرایش ${label} برای حرکت «${ex.name}»:`, currentVal);
+    if (newVal !== null && newVal.trim() !== "") {
+      ex[field] = newVal.trim();
+      saveSchema();
+      renderApp();
+    }
+  }
+
   function renderActiveSession() {
     const session = program.sessions[currentSessionIdx];
     const prog = getSessionProgress(currentWeek, session);
@@ -1045,7 +1086,7 @@
 
     const btnAll = document.getElementById("btnCompleteSession");
     btnAll.className = `btn-complete-all ${allDone ? 'done' : ''}`;
-    btnAll.innerText = allDone ? "جلسه تکمیل شد ✓" : `تکمیل یکجای جلسه (${prog.doneCount}/${prog.total})`;
+    btnAll.innerText = allDone ? "جلسه تکمیل شد ✓" : `تکمیل کل جلسه (${prog.doneCount}/${prog.total})`;
 
     const list = document.getElementById("exercisesContainer");
     list.innerHTML = "";
@@ -1053,6 +1094,12 @@
     session.exercises.forEach((ex, idx) => {
       const done = isExDone(currentWeek, session.id, ex.id);
       const savedWeight = weights[ex.id] || "";
+      const isMulti = ex.name.includes('/');
+
+      // مقداردهی ست، تکرار و استراحت (همراه با مقدار پیش‌فرض ایمن)
+      const setsText = ex.sets || "۴ ست";
+      const repsText = ex.reps || "۸ تا ۱۲ تکرار";
+      const restText = ex.rest || (isMulti ? "استراحت: ۶۰-۹۰ ثانیه" : "استراحت: ۴۵-۶۰ ثانیه");
 
       const card = document.createElement("div");
       card.className = `exercise-card ${done ? 'completed' : ''}`;
@@ -1062,11 +1109,22 @@
           <div class="ex-number-badge">${done ? '✓' : idx + 1}</div>
           <div class="movements-wrapper">
             ${formatMovementsHTML(ex.name)}
+            <div class="specs-row">
+              <span class="spec-pill spec-sets" onclick="editExerciseSpec('${ex.id}', 'sets', 'تعداد ست')" title="برای تغییر تعداد ست ضربه بزنید">
+                🎯 ${setsText}
+              </span>
+              <span class="spec-pill spec-reps" onclick="editExerciseSpec('${ex.id}', 'reps', 'تعداد تکرار (Reps)')" title="برای تغییر تعداد تکرار ضربه بزنید">
+                🔄 ${repsText}
+              </span>
+              <span class="spec-pill spec-rest">
+                ⏱️ ${restText}
+              </span>
+            </div>
           </div>
         </div>
         <div class="card-bottom-actions">
           <div class="weight-input-wrap">
-            <span>رکورد:</span>
+            <span>وزنه:</span>
             <input type="text" class="weight-input" placeholder="مثلا 60kg" 
                    value="${savedWeight}" 
                    oninput="saveWeight('${ex.id}', this.value)">
@@ -1090,7 +1148,6 @@
     logs[currentWeek][sId][eId] = newState;
 
     if (newState && autoTimer) {
-      // اگر حرکت سوپرست باشد ۹۰ ثانیه وگرنه ۶۰ ثانیه تایمر خودکار اجرا شود
       const session = program.sessions[currentSessionIdx];
       const ex = session.exercises.find(x => x.id === eId);
       const isSuperset = ex && ex.name.includes('/');
@@ -1136,7 +1193,7 @@
     document.getElementById("overallPctText").innerText = pct + "%";
   }
 
-  // سیستم تایمر استراحت هوشمند
+  // تایمر استراحت هوشمند
   let timerInterval = null;
   let totalRestTime = 0;
   let remainingTime = 0;
@@ -1207,18 +1264,11 @@
     document.getElementById("timerBar").style.width = `${pct}%`;
   }
 
-  // مدیریت مدال‌ها
-  function openGuideModal() {
-    document.getElementById("guideModal").classList.add("open");
-  }
-  function closeGuideModal() {
-    document.getElementById("guideModal").classList.remove("open");
-  }
-
   function openJsonModal() {
     document.getElementById("jsonTextarea").value = JSON.stringify(program, null, 2);
     document.getElementById("jsonModal").classList.add("open");
   }
+
   function closeJsonModal() {
     document.getElementById("jsonModal").classList.remove("open");
   }
@@ -1235,7 +1285,7 @@
         throw new Error("کلید sessions یافت نشد.");
       }
       program = parsed;
-      localStorage.setItem(KEY_SCHEMA, JSON.stringify(program));
+      saveSchema();
       currentSessionIdx = 0;
       currentWeek = 1;
       saveUIState();
@@ -1248,7 +1298,7 @@
 
   function resetDefaultSchema() {
     if (confirm("برنامه به نسخه اولیه فاز A4 بازگردانده شود؟")) {
-      program = defaultProgram;
+      program = JSON.parse(JSON.stringify(defaultProgram));
       localStorage.removeItem(KEY_SCHEMA);
       currentSessionIdx = 0;
       closeJsonModal();
@@ -1257,7 +1307,7 @@
   }
 
   function clearAllLogs() {
-    if (confirm("آیا تمام تیک‌های انجام تمرین در تمام هفته‌ها پاک شوند؟ (رکوردهای وزنه باقی می‌مانند)")) {
+    if (confirm("آیا تمام تیک‌های انجام تمرین پاک شوند؟")) {
       logs = {};
       saveLogs();
       closeJsonModal();
