@@ -3,18 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BIOMECHANICAL WORKOUT TRACKER</title>
+  <title>PRO GYM TRACKER</title>
+
+  <!-- متاتگ‌های استاندارد نصب وب‌اپلیکیشن تمام‌صفحه (Android & iOS) -->
+  <meta name="theme-color" content="#060911" id="metaThemeColor">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="GymTracker">
+  <link id="appleTouchIcon" rel="apple-touch-icon">
+  <link id="dynamicManifest" rel="manifest">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* متغیرهای پایه و سیستم تم‌ها */
     :root, [data-theme="cyber"] {
       --bg-base: #060911;
       --bg-surface: #0f1626;
       --bg-elevated: #182238;
-      --bg-glass: rgba(15, 22, 38, 0.92);
+      --bg-glass: rgba(15, 22, 38, 0.94);
       --border-subtle: rgba(255, 255, 255, 0.08);
       --border-highlight: rgba(255, 255, 255, 0.16);
       --text-primary: #f8fafc;
@@ -101,7 +110,6 @@
       --bg-glow: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.08) 0%, transparent 65%);
     }
 
-    /* ۳ حالت فونت و مقیاس تایپوگرافی */
     :root, [data-font="standard"] {
       --font-body: 'Vazirmatn', sans-serif;
       --font-heading: 'Vazirmatn', sans-serif;
@@ -156,7 +164,6 @@
       gap: 14px;
     }
 
-    /* نوار ابزار بالای صفحه */
     .top-bar {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
@@ -165,7 +172,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
 
-    . utility-toolbar {
+    .utility-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -194,13 +201,20 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.2s;
     }
 
     .tool-btn:hover, .tool-btn:active {
       border-color: var(--theme-primary);
       color: var(--theme-primary);
+    }
+
+    .tool-btn.install-highlight {
+      background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+      color: #04131f;
+      border: none;
+      font-weight: 900;
     }
 
     .brand-title h1 {
@@ -219,7 +233,6 @@
       line-height: 1.5;
     }
 
-    /* نوار پیشرفت کل دوره */
     .overall-progress-box {
       background: var(--bg-base);
       border: 1px solid var(--border-subtle);
@@ -251,7 +264,6 @@
       transition: width 0.35s ease;
     }
 
-    /* تب‌های هفته (پشتیبانی از ۴ تا ۸ هفته) */
     .week-selector {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
@@ -279,7 +291,6 @@
       background: var(--bg-elevated);
       color: var(--theme-primary);
       border-color: var(--theme-primary);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     .week-pill.week-done::after {
@@ -287,7 +298,6 @@
       color: var(--theme-secondary);
     }
 
-    /* تب‌های جلسات (پشتیبانی از ۳ تا ۶ جلسه در هفته) */
     .session-tabs {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
@@ -340,7 +350,6 @@
       color: var(--theme-secondary);
     }
 
-    /* هدر جلسه فعال */
     .active-session-hero {
       background: linear-gradient(145deg, var(--bg-elevated), var(--bg-surface));
       border: 1px solid var(--border-highlight);
@@ -396,7 +405,6 @@
       color: var(--theme-secondary);
     }
 
-    /* لیست کارت‌های حرکات */
     .exercises-list {
       display: flex;
       flex-direction: column;
@@ -493,7 +501,6 @@
       width: fit-content;
     }
 
-    /* بج‌های استخراج‌شده از JSON (ست، تکرار، RIR، استراحت، نکته فنی) */
     .specs-row {
       display: flex;
       flex-wrap: wrap;
@@ -542,7 +549,6 @@
       border: 1px solid rgba(16, 185, 129, 0.28);
     }
 
-    /* بخش پایین هر کارت: ثبت وزنه + دکمه کشیده */
     .card-bottom-actions {
       display: flex;
       align-items: center;
@@ -600,10 +606,6 @@
       transition: all 0.2s;
     }
 
-    .btn-check-wide:active {
-      transform: scale(0.98);
-    }
-
     .btn-check-wide.done {
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.2));
       border-color: var(--theme-secondary);
@@ -611,7 +613,6 @@
       box-shadow: 0 0 15px rgba(16, 185, 129, 0.18);
     }
 
-    /* داک شناور تایمر هوشمند */
     .smart-timer-dock {
       position: fixed;
       bottom: 12px;
@@ -687,10 +688,6 @@
       cursor: pointer;
     }
 
-    .t-btn:hover {
-      border-color: var(--theme-primary);
-    }
-
     .t-btn.stop {
       background: rgba(239, 68, 68, 0.18);
       color: var(--theme-danger);
@@ -712,7 +709,6 @@
       transition: width 0.25s linear;
     }
 
-    /* مدال JSON */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -807,19 +803,15 @@
 
 <div class="app-shell">
 
-  <!-- هدر اصلی با دکمه‌های تغییر تم، فونت و JSON -->
   <header class="top-bar">
     <div class="utility-toolbar">
       <div class="toolbar-group">
-        <button class="tool-btn" onclick="cycleTheme()" id="themeBtn" title="تغییر تم و رنگ‌بندی">
-          🎨 تم: سایبر نئون
-        </button>
-        <button class="tool-btn" onclick="cycleFont()" id="fontBtn" title="تغییر فونت و سایز متون">
-          🅰️ فونت: استاندارد
-        </button>
+        <button class="tool-btn" onclick="cycleTheme()" id="themeBtn">🎨 تم: سایبر نئون</button>
+        <button class="tool-btn" onclick="cycleFont()" id="fontBtn">🅰️ فونت: استاندارد</button>
       </div>
       <div class="toolbar-group">
-        <button class="tool-btn" onclick="openJsonModal()">⚙️ ورود / تغییر JSON</button>
+        <button class="tool-btn install-highlight" id="installAppBtn" onclick="triggerInstallApp()">📲 نصب اپ</button>
+        <button class="tool-btn" onclick="openJsonModal()">⚙️ برنامه (JSON)</button>
       </div>
     </div>
 
@@ -841,10 +833,8 @@
     <div class="week-selector" id="weekTabs"></div>
   </header>
 
-  <!-- تب‌های جلسات هفتگی -->
   <nav class="session-tabs" id="sessionTabs"></nav>
 
-  <!-- بنر جلسه فعال -->
   <section class="active-session-hero">
     <div class="hero-info">
       <span class="hero-tag" id="heroTag">تنش مکانیکی</span>
@@ -855,7 +845,6 @@
     </button>
   </section>
 
-  <!-- لیست کارت‌های حرکات -->
   <main class="exercises-list" id="exercisesContainer"></main>
 
 </div>
@@ -891,7 +880,7 @@
       <button class="close-btn" onclick="closeJsonModal()">✕</button>
     </div>
     <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6;">
-      هر فایل JSON که وارد کنید، برنامه به‌طور هوشمند تعداد هفته‌ها، جلسات، ست‌ها، تکرارها، RIR و زمان استراحت را از متن حرکات یا فیلدهای مجزا استخراج و اعمال می‌کند.
+      هر فایل JSON که وارد کنید، برنامه به‌طور هوشمند تعداد هفته‌ها، جلسات، ست‌ها، تکرارها، RIR و زمان استراحت را استخراج و اعمال می‌کند.
     </p>
     <textarea class="json-editor" id="jsonTextarea" spellcheck="false"></textarea>
     <div class="modal-footer-btns">
@@ -906,7 +895,86 @@
 </div>
 
 <script>
-  // برنامه ۵ روزه تخصصی بیومکانیکی به عنوان پیش‌فرض
+  // ۱. تولید خودکار آیکون استاندارد باشگاه و Web Manifest برای نصب PWA در کروم
+  function setupPWA() {
+    const createIcon = (size) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+
+      // پس‌زمینه تیره ورزشی
+      ctx.fillStyle = '#060911';
+      ctx.fillRect(0, 0, size, size);
+
+      // حلقه نئونی دور آیکون
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = size * 0.05;
+      ctx.strokeRect(size * 0.08, size * 0.08, size * 0.84, size * 0.84);
+
+      // رسم دمبل گرافیکی وسط آیکون
+      ctx.fillStyle = '#10b981';
+      const cy = size / 2;
+      ctx.fillRect(size * 0.28, cy - size * 0.03, size * 0.44, size * 0.06);
+      ctx.fillStyle = '#06b6d4';
+      ctx.fillRect(size * 0.20, cy - size * 0.16, size * 0.08, size * 0.32);
+      ctx.fillRect(size * 0.72, cy - size * 0.16, size * 0.08, size * 0.32);
+
+      return canvas.toDataURL('image/png');
+    };
+
+    const icon192 = createIcon(192);
+    const icon512 = createIcon(512);
+    document.getElementById('appleTouchIcon').href = icon192;
+
+    const manifest = {
+      name: "Pro Biomechanical Gym Tracker",
+      short_name: "GymTracker",
+      description: "سیستم هوشمند رهگیری تمرینات بدنسازی",
+      start_url: window.location.href.split('#')[0],
+      scope: "./",
+      display: "standalone",
+      orientation: "portrait",
+      background_color: "#060911",
+      theme_color: "#060911",
+      icons: [
+        { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+        { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+      ]
+    };
+
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+    document.getElementById('dynamicManifest').href = URL.createObjectURL(blob);
+
+    // ثبت سرویس ورکر در صورت وجود فایل sw.js در گیت‌هاب
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+  }
+
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+  });
+
+  function triggerInstallApp() {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.then(() => {
+        deferredInstallPrompt = null;
+      });
+    } else {
+      alert(
+        "برای نصب تمام‌صفحه روی گوشی:\n\n" +
+        "۱. در مرورگر کروم روی منوی سه نقطه (⋮) بالای صفحه بزنید.\n" +
+        "۲. گزینه «Add to Home screen» یا «Install app» را انتخاب کنید.\n" +
+        "(اگر فایل sw.js را در گیت‌هاب کنار index.html بگذارید، گزینه Install App فعال می‌شود)."
+      );
+    }
+  }
+
+  // ۲. دیتابیس پیش‌فرض برنامه ۵ روزه بیومکانیکی
   const defaultProgram = {
     "title": "برنامه بدنسازی ۵ روزه تخصصی (نسخه اصلاح‌شده بیومکانیکی)",
     "subtitle": "اولویت بازسازی بالاتنه • هایپرتروفی در وضعیت کشیده (Lengthened Bias) • هفته‌های ۲ تا ۶",
@@ -984,18 +1052,17 @@
     ]
   };
 
-  // لیست تم‌ها و فونت‌ها
   const THEMES = [
-    { id: "cyber", label: "سایبر نئون" },
-    { id: "olympia", label: "المپیا طلایی" },
-    { id: "matrix", label: "ماتریکس" },
-    { id: "ultraviolet", label: "کهکشانی" },
-    { id: "daylight", label: "تیتانیوم روشن" }
+    { id: "cyber", label: "سایبر نئون", bg: "#060911" },
+    { id: "olympia", label: "المپیا طلایی", bg: "#050505" },
+    { id: "matrix", label: "ماتریکس", bg: "#030a06" },
+    { id: "ultraviolet", label: "کهکشانی", bg: "#080412" },
+    { id: "daylight", label: "تیتانیوم روشن", bg: "#f1f5f9" }
   ];
 
   const FONTS = [
-    { id: "standard", label: "استاندارد (وزیر)" },
-    { id: "gym-bold", label: "درشت ورزشی (لاله‌زار)" },
+    { id: "standard", label: "استاندارد" },
+    { id: "gym-bold", label: "درشت ورزشی" },
     { id: "compact", label: "فشرده و ظریف" }
   ];
 
@@ -1013,12 +1080,10 @@
   let themeIdx = 0;
   let fontIdx = 0;
 
-  // تبدیل اعداد فارسی به انگلیسی برای محاسبه ثانیه تایمر
   function toEnglishDigits(str) {
     return str.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
   }
 
-  // موتور هوشمند استخراج ست، تکرار، RIR، استراحت و نکته فنی از رشته متنی JSON
   function parseExerciseData(ex) {
     let rawTitle = (ex.name || "").trim();
     let pairedTag = ex.pairedTag || null;
@@ -1029,14 +1094,12 @@
     let note = ex.note || null;
     let restSeconds = 90;
 
-    // ۱. تشخیص تگ جفت مثل [جفت ۱] در ابتدای رشته
     const pairMatch = rawTitle.match(/^\[(.*?)\]\s*/);
     if (pairMatch) {
       pairedTag = pairMatch[1];
       rawTitle = rawTitle.replace(pairMatch[0], '').trim();
     }
 
-    // ۲. تشخیص آخرین پرانتز حاوی اطلاعات ست و تکرار (دارای کلمه "ست" یا علامت "×")
     const specParenRegex = /\(([^()]*?(?:ست|×)[^()]*)\)\s*$/;
     const specMatch = rawTitle.match(specParenRegex);
 
@@ -1044,7 +1107,6 @@
       const specContent = specMatch[1].trim();
       rawTitle = rawTitle.replace(specParenRegex, '').trim();
 
-      // تفکیک بخش‌های داخل پرانتز با خط تیره " - " یا "+"
       const segments = specContent.split(/\s+-\s+|\s+\+\s+/);
       const extraNotes = [];
 
@@ -1068,7 +1130,6 @@
       }
     }
 
-    // ۳. محاسبه زمان استراحت به ثانیه برای تایمر خودکار
     if (rest) {
       const engRest = toEnglishDigits(rest);
       const numMatch = engRest.match(/(\d+)/);
@@ -1137,6 +1198,7 @@
     const f = FONTS[fontIdx] || FONTS[0];
     document.documentElement.setAttribute("data-theme", t.id);
     document.documentElement.setAttribute("data-font", f.id);
+    document.getElementById("metaThemeColor").setAttribute("content", t.bg);
     document.getElementById("themeBtn").innerText = `🎨 تم: ${t.label}`;
     document.getElementById("fontBtn").innerText = `🅰️ فونت: ${f.label}`;
   }
@@ -1227,7 +1289,6 @@
       const tab = document.createElement("div");
       tab.className = `session-tab ${idx === currentSessionIdx ? 'active' : ''} ${isComplete ? 'is-complete' : ''}`;
 
-      // استخراج نام کوتاه جلسه (مثلاً "جلسه ۱: Push")
       const shortTitle = s.shortName || s.title.split('(')[0].trim();
 
       tab.innerHTML = `
@@ -1365,7 +1426,7 @@
     document.getElementById("overallPctText").innerText = pct + "%";
   }
 
-  // تایمر استراحت هوشمند
+  // تایمر استراحت
   let timerInterval = null;
   let totalRestTime = 0;
   let remainingTime = 0;
@@ -1436,7 +1497,6 @@
     document.getElementById("timerBar").style.width = `${pct}%`;
   }
 
-  // مدیریت مدال JSON
   function openJsonModal() {
     document.getElementById("jsonTextarea").value = JSON.stringify(program, null, 2);
     document.getElementById("jsonModal").classList.add("open");
@@ -1490,6 +1550,7 @@
     }
   }
 
+  setupPWA();
   loadAll();
   renderApp();
 </script>
